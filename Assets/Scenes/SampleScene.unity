@@ -317,8 +317,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropObj: {fileID: 329263919}
-  dropArea1: {fileID: 0}
-  dropArea2: {fileID: 0}
+  dropArea1: {fileID: 1265070031}
+  dropArea2: {fileID: 253896098}
 --- !u!114 &253896098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2074,8 +2074,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropObj: {fileID: 329263919}
-  dropArea1: {fileID: 0}
-  dropArea2: {fileID: 0}
+  dropArea1: {fileID: 1265070031}
+  dropArea2: {fileID: 253896098}
 --- !u!114 &1265070031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2165,8 +2165,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropObj: {fileID: 329263919}
-  dropArea1: {fileID: 0}
-  dropArea2: {fileID: 0}
+  dropArea1: {fileID: 1265070031}
+  dropArea2: {fileID: 1427885725}
 --- !u!114 &1427885725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2442,8 +2442,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropObj: {fileID: 329263919}
-  dropArea1: {fileID: 0}
-  dropArea2: {fileID: 0}
+  dropArea1: {fileID: 1900868764}
+  dropArea2: {fileID: 1427885725}
 --- !u!114 &1900868764
 MonoBehaviour:
   m_ObjectHideFlags: 0
