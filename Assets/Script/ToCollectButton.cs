@@ -16,6 +16,6 @@ public class ToCollectButton : MonoBehaviour
 
     void OnTitleButtonClick()
     {
-        SceneManager.LoadScene("");
+        SceneManager.LoadScene("CollectScene");
     }
 }
