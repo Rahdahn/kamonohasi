@@ -44,6 +44,7 @@ public class SliderMove1 : MonoBehaviour
             else
             {
                 // ƒNƒŠƒbƒN‚³‚ê‚½‚ªğŒ‚É‡’v‚µ‚È‚¢ê‡‚Ìˆ—‚ğ’Ç‰Á‚·‚é
+                UnityEngine.Debug.Log("¸”s");
                 outOfRangeImage.SetActive(true);
             }
             return;
