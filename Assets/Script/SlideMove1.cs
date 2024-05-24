@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SliderMove1 : MonoBehaviour
 {
     [SerializeField] Slider currentSlider;
     [SerializeField] Slider nextSlider;
-    [SerializeField] GameObject outOfRangeImage;
     private bool isClicked;
     private bool maxValue;
 
@@ -45,7 +45,7 @@ public class SliderMove1 : MonoBehaviour
             {
                 // ƒNƒŠƒbƒN‚³‚ê‚½‚ªğŒ‚É‡’v‚µ‚È‚¢ê‡‚Ìˆ—‚ğ’Ç‰Á‚·‚é
                 UnityEngine.Debug.Log("¸”s");
-                outOfRangeImage.SetActive(true);
+                SceneManager.LoadScene("ResultButScene");
             }
             return;
         }

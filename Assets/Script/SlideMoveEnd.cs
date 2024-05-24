@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;  // Add this line to include SceneManager
 
 public class SlideMoveEnd : MonoBehaviour
 {
@@ -35,7 +36,8 @@ public class SlideMoveEnd : MonoBehaviour
             if (currentSlider.value >= 4.5 && currentSlider.value <= 5.5)
             {
                 UnityEngine.Debug.Log("Great!!");
-                currentSlider.gameObject.SetActive(false); // 現在のスライダーを非アクティブにする
+                currentSlider.gameObject.SetActive(false); // Deactivate the current slider
+                SceneManager.LoadScene("ResultScene");  // Load the ResultScene
             }
             return;
         }
