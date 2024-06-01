@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;  // スライダー用の名前空間を追加
 
-public class test : MonoBehaviour
+public class Test : MonoBehaviour
 {
     // ドロップ可能オブジェクトリスト
     public List<Draggable> dropObjs;
@@ -14,8 +14,8 @@ public class test : MonoBehaviour
     public MonoBehaviour dropArea3;
     public MonoBehaviour dropArea4;
 
-    // スライダー（エディタでアタッチ）
-    public Slider mySlider;
+    // MixGaugeManager（エディタでアタッチ）
+    public MixGaugeManager mixGaugeManager;
 
     // 各ドロップエリアの状態を追跡する辞書
     private Dictionary<MonoBehaviour, bool> dropAreaOccupied;
@@ -70,9 +70,6 @@ public class test : MonoBehaviour
                 resetAction.Invoke();
             };
         }
-
-        // 初期状態でスライダーを非表示にする
-        mySlider.gameObject.SetActive(false);
     }
 
     Vector2 GetSnapPosition(MonoBehaviour dropArea)
@@ -89,7 +86,13 @@ public class test : MonoBehaviour
                 return; // まだ埋まっていないエリアがある場合は終了
             }
         }
-        // すべてのエリアが埋まっている場合、スライダーを起動
-        mySlider.gameObject.SetActive(true);
+        // すべてのエリアが埋まっている場合、MixGaugeManagerを起動
+        StartMixGaugeManager();
+    }
+
+    void StartMixGaugeManager()
+    {
+        mixGaugeManager.gameObject.SetActive(true); // MixGaugeManagerをアクティブにする
+        mixGaugeManager.Initialize(); // MixGaugeManagerのInitializeメソッドを呼び出す
     }
 }
