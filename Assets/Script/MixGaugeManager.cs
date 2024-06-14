@@ -1,10 +1,7 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static System.Net.Mime.MediaTypeNames;
 
 public class MixGaugeManager : MonoBehaviour
 {
@@ -34,7 +31,7 @@ public class MixGaugeManager : MonoBehaviour
         maxValue = false;
         isClicked = false;
         currentSliderIndex = 0; // インデックスを初期化する
-
+        middleImage.gameObject.SetActive(false); // 画像を非表示にする
     }
 
     void Update()
@@ -51,11 +48,19 @@ public class MixGaugeManager : MonoBehaviour
             // ランダムに成功位置を設定
             successPosition = UnityEngine.Random.Range(2, 9);
 
-            UnityEngine.Debug.Log(successPosition);
+            // サクセスポジションの位置をデバッグログに出力
+            UnityEngine.Debug.Log("Success Position: " + successPosition);
 
-            if (currentSlider.value >= successPosition - 1 && currentSlider.value <= successPosition +1)
+            // 画像を成功位置に移動させて表示する
+            Vector3 imagePosition = currentSlider.fillRect.position;
+            imagePosition.x = Map(successPosition, 0, 10, currentSlider.fillRect.rect.xMin, currentSlider.fillRect.rect.xMax);
+            middleImage.rectTransform.position = imagePosition;
+            middleImage.gameObject.SetActive(true);
+
+            if (currentSlider.value >= successPosition - 1 && currentSlider.value <= successPosition + 1)
             {
                 currentSlider.gameObject.SetActive(false); // 現在のスライダーを非アクティブにする
+                middleImage.gameObject.SetActive(false); // 画像を非表示にする
                 currentSliderIndex++;
                 if (currentSliderIndex < sliders.Count)
                 {

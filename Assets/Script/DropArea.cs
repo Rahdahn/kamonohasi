@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;  // スライダー用の名前空間を追加
 
-public class DropArea : MonoBehaviour
+public class Test : MonoBehaviour
 {
     // ドロップ可能オブジェクトリスト
     public List<Draggable> dropObjs;
