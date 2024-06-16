@@ -32,6 +32,9 @@ public class MixGaugeManager : MonoBehaviour
         isClicked = false;
         currentSliderIndex = 0; // インデックスを初期化する
         middleImage.gameObject.SetActive(false); // 画像を非表示にする
+
+        // 最初の成功位置を設定し、画像を表示
+        SetSuccessPositionAndShowImage();
     }
 
     void Update()
@@ -40,48 +43,41 @@ public class MixGaugeManager : MonoBehaviour
         {
             isClicked = !isClicked;
             UnityEngine.Debug.Log(isClicked ? "stop" : "start");
-        }
 
-        if (isClicked && currentSliderIndex < sliders.Count)
-        {
-            Slider currentSlider = sliders[currentSliderIndex];
-            // ランダムに成功位置を設定
-            successPosition = UnityEngine.Random.Range(2, 9);
-
-            // サクセスポジションの位置をデバッグログに出力
-            UnityEngine.Debug.Log("Success Position: " + successPosition);
-
-            // 画像を成功位置に移動させて表示する
-            Vector3 imagePosition = currentSlider.fillRect.position;
-            imagePosition.x = Map(successPosition, 0, 10, currentSlider.fillRect.rect.xMin, currentSlider.fillRect.rect.xMax);
-            middleImage.rectTransform.position = imagePosition;
-            middleImage.gameObject.SetActive(true);
-
-            if (currentSlider.value >= successPosition - 1 && currentSlider.value <= successPosition + 1)
+            if (!isClicked) // ストップしたタイミングで判定
             {
-                currentSlider.gameObject.SetActive(false); // 現在のスライダーを非アクティブにする
-                middleImage.gameObject.SetActive(false); // 画像を非表示にする
-                currentSliderIndex++;
                 if (currentSliderIndex < sliders.Count)
                 {
-                    Slider nextSlider = sliders[currentSliderIndex];
-                    nextSlider.gameObject.SetActive(true); // 次のスライダーをアクティブにする
-                    nextSlider.value = 0; // 次のスライダーの値をリセットする
-                    UnityEngine.Debug.Log("成功");
-                }
-                else
-                {
-                    UnityEngine.Debug.Log("Great!!");
-                    SceneManager.LoadScene("ResultScene"); // 最終結果のシーンをロードする
+                    Slider currentSlider = sliders[currentSliderIndex];
+
+                    if (currentSlider.value >= successPosition - 1 && currentSlider.value <= successPosition + 1)
+                    {
+                        currentSlider.gameObject.SetActive(false); // 現在のスライダーを非アクティブにする
+                        middleImage.gameObject.SetActive(false); // 画像を非表示にする
+                        currentSliderIndex++;
+                        if (currentSliderIndex < sliders.Count)
+                        {
+                            Slider nextSlider = sliders[currentSliderIndex];
+                            nextSlider.gameObject.SetActive(true); // 次のスライダーをアクティブにする
+                            nextSlider.value = 0; // 次のスライダーの値をリセットする
+                            UnityEngine.Debug.Log("成功");
+                            SetSuccessPositionAndShowImage(); // 次の成功位置を設定し、画像を表示
+                        }
+                        else
+                        {
+                            UnityEngine.Debug.Log("Great!!");
+                            SceneManager.LoadScene("ResultScene"); // 最終結果のシーンをロードする
+                        }
+                    }
+                    else
+                    {
+                        UnityEngine.Debug.Log("失敗");
+                        SceneManager.LoadScene("ResultButScene"); // 失敗時のシーンをロードする
+                    }
+                    isClicked = false; // クリック状態をリセットする
+                    return;
                 }
             }
-            else
-            {
-                UnityEngine.Debug.Log("失敗");
-                SceneManager.LoadScene("ResultButScene"); // 失敗時のシーンをロードする
-            }
-            isClicked = false; // クリック状態をリセットする
-            return;
         }
 
         if (currentSliderIndex < sliders.Count)
@@ -97,6 +93,30 @@ public class MixGaugeManager : MonoBehaviour
             }
 
             activeSlider.value += maxValue ? -0.03f : 0.03f;
+        }
+    }
+
+    private void SetSuccessPositionAndShowImage()
+    {
+        if (currentSliderIndex < sliders.Count)
+        {
+            Slider currentSlider = sliders[currentSliderIndex];
+            successPosition = UnityEngine.Random.Range(2, 9);
+
+            // サクセスポジションの位置をデバッグログに出力
+            UnityEngine.Debug.Log("Success Position: " + successPosition);
+
+            // 画像を成功位置に移動させて表示する
+            RectTransform sliderRectTransform = currentSlider.GetComponent<RectTransform>();
+            RectTransform fillRectTransform = currentSlider.fillRect;
+
+            float normalizedPosition = successPosition / 10f;
+            float imageXPosition = Mathf.Lerp(sliderRectTransform.rect.xMin, sliderRectTransform.rect.xMax, normalizedPosition);
+
+            // ワールド座標をローカル座標に変換して設定
+            Vector3 localPosition = fillRectTransform.TransformPoint(new Vector3(imageXPosition, fillRectTransform.rect.center.y, 0));
+            middleImage.rectTransform.position = localPosition;
+            middleImage.gameObject.SetActive(true);
         }
     }
 
