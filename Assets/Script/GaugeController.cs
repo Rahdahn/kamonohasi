@@ -55,26 +55,25 @@ public class GaugeController : MonoBehaviour
             {
                 isFilling = !isFilling;  // 左クリックで動作の停止と再開を切り替える
 
-                // ゲージが止まった時の値が成功基準以上かどうかを判定
+                // 2回目の判定で成功か失敗の判定を行う
                 if (!isFilling)
                 {
                     judgeCount++;  // 判定回数を増加させる
 
-                    if (slider.value >= successThreshold)
+                    if (judgeCount == 2)
                     {
-                        Debug.Log("Success!");  // 成功した場合の処理
-                        AwardItem();  // アイテムを獲得する
-                        lastClickedObject.SetActive(false);  // 成功時にオブジェクトを非アクティブにする
-                    }
-                    else
-                    {
-                        Debug.Log("Failure.");  // 失敗した場合の処理
-                    }
+                        if (slider.value >= successThreshold)
+                        {
+                            Debug.Log("Success!");  // 成功した場合の処理
+                            AwardItem();  // アイテムを獲得する
+                            lastClickedObject.SetActive(false);  // 成功時にオブジェクトを非アクティブにする
+                        }
+                        else
+                        {
+                            Debug.Log("Failure.");  // 失敗した場合の処理
+                        }
 
-                    // 2回目の判定でスライダーを非アクティブにする
-                    if (judgeCount >= 2)
-                    {
-                        slider.gameObject.SetActive(false);
+                        slider.gameObject.SetActive(false);  // 2回目の判定でスライダーを非アクティブにする
                     }
                 }
             }
