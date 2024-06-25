@@ -113,9 +113,16 @@ public class MixGaugeManager : MonoBehaviour
             float normalizedPosition = successPosition / 10f;
             float imageXPosition = Mathf.Lerp(sliderRectTransform.rect.xMin, sliderRectTransform.rect.xMax, normalizedPosition);
 
-            // ワールド座標をローカル座標に変換して設定
-            Vector3 localPosition = fillRectTransform.TransformPoint(new Vector3(imageXPosition, fillRectTransform.rect.center.y, 0));
-            middleImage.rectTransform.position = localPosition;
+            // スライダーのサイズを取得
+            float sliderWidth = sliderRectTransform.rect.width;
+            float sliderHeight = sliderRectTransform.rect.height;
+
+            // MiddleImageのサイズをスライダーのサイズに合わせる
+            middleImage.rectTransform.sizeDelta = new Vector2(sliderWidth * 0.1f, sliderHeight); // 幅をスライダーの幅の10%に設定
+
+            // MiddleImageの位置を設定
+            middleImage.rectTransform.localPosition = new Vector3(imageXPosition - (sliderWidth / 2), sliderRectTransform.rect.center.y, 0);
+
             middleImage.gameObject.SetActive(true);
         }
     }
