@@ -41,13 +41,8 @@ public class Test : MonoBehaviour
                 { dropArea4, GetSnapPosition(dropArea4) }
             };
 
-            dropObj.beforeBeginDrag = () =>
-            {
-                Debug.Log("ドラッグ前に呼び出される処理");
-            };
             dropObj.onDropSuccess = (MonoBehaviour area, Action resetAction) =>
             {
-                Debug.Log("ドラッグ成功時に呼び出される処理");
 
                 if (dropAreaOccupied[area])
                 {
@@ -63,11 +58,6 @@ public class Test : MonoBehaviour
                     // すべてのドロップエリアが埋まったかチェック
                     CheckAllDropAreasFilled();
                 }
-            };
-            dropObj.onDropFail = (Action resetAction) =>
-            {
-                Debug.Log("ドラッグ失敗時に呼び出される処理");
-                resetAction.Invoke();
             };
         }
     }
