@@ -13,6 +13,7 @@ public class GaugeController : MonoBehaviour
     private int judgeCount = 0;  // 判定回数を追跡する変数
 
     public MovementController[] movementControllers;  // MovementControllerの配列
+    public ObjectActivator[] objectActivators;  // ObjectActivatorの配列
 
     void Update()
     {
@@ -84,6 +85,14 @@ public class GaugeController : MonoBehaviour
                         }
 
                         slider.gameObject.SetActive(false);  // 2回目の判定でスライダーを非アクティブにする
+
+                        foreach (var objectActivator in objectActivators)
+                        {
+                            if (objectActivator != null)
+                            {
+                                objectActivator.Deactivate();  // 成功または失敗時にオブジェクトを非アクティブにする
+                            }
+                        }
                     }
                 }
             }

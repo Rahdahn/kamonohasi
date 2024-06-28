@@ -1,26 +1,9 @@
 using UnityEngine;
-using System.Collections;
 
-public class Gauge : MonoBehaviour
+public class ObjectActivator : MonoBehaviour
 {
-    public CircularGauge gauge;
-    public float increaseAmount = 0.1f;
-    public float increaseInterval = 0.5f;
-    private bool isIncreasing = true;
-    private bool isActive = true;  // スクリプトがアクティブかどうかを追跡
-
+    private bool isActive = true;  // オブジェクトがアクティブかどうかを追跡
     public MovementController[] movementControllers;  // MovementControllerの配列
-
-    void Start()
-    {
-        if (gauge == null)
-        {
-            Debug.LogError("CircularGauge is not assigned!");
-            return;
-        }
-
-        StartCoroutine(IncreaseGaugeOverTime());
-    }
 
     void Update()
     {
@@ -36,23 +19,7 @@ public class Gauge : MonoBehaviour
         }
     }
 
-    IEnumerator IncreaseGaugeOverTime()
-    {
-        while (true)
-        {
-            if (isActive && isIncreasing)
-            {
-                gauge.IncreaseGauge(increaseAmount);
-                if (gauge.CurrentValue >= gauge.maxValue)
-                {
-                    isIncreasing = false;
-                }
-            }
-            yield return new WaitForSeconds(increaseInterval);
-        }
-    }
-
-    private void ToggleActiveState()
+    public void ToggleActiveState()
     {
         isActive = !isActive;
 
@@ -75,6 +42,17 @@ public class Gauge : MonoBehaviour
                     movementController.PauseMovement();
                 }
             }
+        }
+
+        // オブジェクト自体のアクティブ状態を切り替える
+        gameObject.SetActive(isActive);
+    }
+
+    public void Deactivate()
+    {
+        if (isActive)
+        {
+            ToggleActiveState();
         }
     }
 }
