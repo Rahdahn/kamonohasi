@@ -12,6 +12,8 @@ public class GaugeController : MonoBehaviour
     private GameObject lastClickedObject;  // 最後にタップされたオブジェクトを記録する
     private int judgeCount = 0;  // 判定回数を追跡する変数
 
+    public MovementController[] movementControllers;  // MovementControllerの配列
+
     void Update()
     {
         if (slider.gameObject.activeInHierarchy)
@@ -67,6 +69,14 @@ public class GaugeController : MonoBehaviour
                             Debug.Log("Success!");  // 成功した場合の処理
                             AwardItem();  // アイテムを獲得する
                             lastClickedObject.SetActive(false);  // 成功時にオブジェクトを非アクティブにする
+
+                            foreach (var movementController in movementControllers)
+                            {
+                                if (movementController != null)
+                                {
+                                    movementController.ResumeMovement();  // 成功時に動きを再開する
+                                }
+                            }
                         }
                         else
                         {

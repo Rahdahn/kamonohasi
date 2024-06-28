@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI; // ボタン用に追加
 
 public class MovementController : MonoBehaviour
 {
@@ -8,17 +7,9 @@ public class MovementController : MonoBehaviour
     private Rigidbody2D rb;
     private bool isPaused = false;
 
-    public Button pauseButton; // ボタンの参照
-
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-
-        // ボタンのクリックイベントにメソッドを登録
-        if (pauseButton != null)
-        {
-            pauseButton.onClick.AddListener(TogglePause);
-        }
     }
 
     void OnMouseDown()
@@ -26,7 +17,7 @@ public class MovementController : MonoBehaviour
         TogglePause();
     }
 
-    private void TogglePause()
+    public void TogglePause()
     {
         if (!isPaused)
         {
@@ -38,7 +29,7 @@ public class MovementController : MonoBehaviour
         }
     }
 
-    private void PauseMovement()
+    public void PauseMovement()
     {
         foreach (var script in controlScripts)
         {
@@ -54,7 +45,7 @@ public class MovementController : MonoBehaviour
         }
     }
 
-    private void ResumeMovement()
+    public void ResumeMovement()
     {
         foreach (var script in controlScripts)
         {
