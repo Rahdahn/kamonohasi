@@ -92,11 +92,11 @@ public class MixGaugeManager : MonoBehaviour
         if (currentSliderIndex < sliders.Count && !isClicked)
         {
             Slider activeSlider = sliders[currentSliderIndex];
-            if (activeSlider.value >= 10)
+            if (activeSlider.value >= activeSlider.maxValue)
             {
                 maxValue = true;
             }
-            else if (activeSlider.value <= 0)
+            else if (activeSlider.value <= activeSlider.minValue)
             {
                 maxValue = false;
             }
@@ -112,30 +112,26 @@ public class MixGaugeManager : MonoBehaviour
         {
             Slider currentSlider = sliders[currentSliderIndex];
             successPosition = UnityEngine.Random.Range(2, 8);
-            minSuccessPosition = Mathf.Max(successPosition - 1, 2); // 最小値を2以上にする
-            maxSuccessPosition = Mathf.Min(successPosition + 1, 8); // 最大値を8以下にする
+            minSuccessPosition = successPosition - 1; // 成功位置の最小値を設定
+            maxSuccessPosition = successPosition + 1; // 成功位置の最大値を設定
 
-            // サクセスポジションの位置をデバッグログに出力（ここで一度だけ呼び出す）
+            // サクセスポジションの位置をデバッグログに出力）
             UnityEngine.Debug.Log("Success Position: " + successPosition);
 
             // 画像を成功位置に移動させて表示する
             RectTransform sliderRectTransform = currentSlider.GetComponent<RectTransform>();
 
-            float minNormalizedPosition = minSuccessPosition / 5f;
-            float maxNormalizedPosition = maxSuccessPosition / 5f;
+            float minNormalizedPosition = (float)minSuccessPosition / currentSlider.maxValue;
+            float maxNormalizedPosition = (float)maxSuccessPosition / currentSlider.maxValue;
 
             float minImageXPosition = Mathf.Lerp(sliderRectTransform.rect.xMin, sliderRectTransform.rect.xMax, minNormalizedPosition);
             float maxImageXPosition = Mathf.Lerp(sliderRectTransform.rect.xMin, sliderRectTransform.rect.xMax, maxNormalizedPosition);
 
-            // スライダーのサイズを取得
-            float sliderWidth = sliderRectTransform.rect.width;
-            float sliderHeight = sliderRectTransform.rect.height;
-
-            // 成功範囲画像のサイズをスライダーのサイズに合わせる
-            successRangeImage.rectTransform.sizeDelta = new Vector2(maxImageXPosition - minImageXPosition, sliderHeight);
+            // 成功範囲画像のサイズを設定
+            successRangeImage.rectTransform.sizeDelta = new Vector2(maxImageXPosition - minImageXPosition, sliderRectTransform.rect.height);
 
             // 成功範囲画像の位置を設定
-            successRangeImage.rectTransform.localPosition = new Vector3((minImageXPosition + maxImageXPosition) / 2 - (sliderWidth / 2), sliderRectTransform.rect.center.y, 0);
+            successRangeImage.rectTransform.localPosition = new Vector3((minImageXPosition + maxImageXPosition) / 2 - (sliderRectTransform.rect.width / 2), sliderRectTransform.rect.center.y, 0);
 
             successRangeImage.gameObject.SetActive(true);
         }
