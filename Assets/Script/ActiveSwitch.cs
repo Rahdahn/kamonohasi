@@ -2,47 +2,51 @@ using UnityEngine;
 
 public class ActiveSwitch : MonoBehaviour
 {
-    public GameObject observedObject; // 監視対象のオブジェクト
-    public GameObject[] linkedObjects; // 切り替える対象のオブジェクトの配列
-
-    private bool previousState; // 監視対象のオブジェクトの前回のアクティブ状態
+    public GameObject targetObject;
+    private ActiveManager activeManager;
 
     void Start()
     {
-        if (observedObject == null)
+        // targetObjectが設定されていない場合、自分自身をターゲットとする
+        if (targetObject == null)
         {
-            Debug.LogError("Observed object is not assigned!");
-            enabled = false; // スクリプトを無効化してエラーを防ぐ
-            return;
+            targetObject = gameObject;
         }
 
-        // 初期状態を保存
-        previousState = observedObject.activeSelf;
+        // ActiveManagerを探す
+        activeManager = FindObjectOfType<ActiveManager>();
+        if (activeManager == null)
+        {
+            Debug.LogError("ActiveManager not found in the scene!");
+        }
     }
 
     void Update()
     {
-        if (observedObject == null) return;
-
-        // 監視対象のオブジェクトのアクティブ状態が変化したかをチェック
-        if (observedObject.activeSelf != previousState)
+        // マウスクリックを検出し、クリックされたオブジェクトがBoxCollider2Dを持っているか確認
+        if (Input.GetMouseButtonDown(0))
         {
-            ToggleLinkedObjects();
-            previousState = observedObject.activeSelf; // 前回の状態を更新
+            Vector2 rayPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(rayPos, Vector2.zero);
+            if (hit.collider != null && hit.collider is BoxCollider2D)
+            {
+                ToggleActiveState();
+            }
         }
     }
 
-    private void ToggleLinkedObjects()
+    private void ToggleActiveState()
     {
-        bool newState = observedObject.activeSelf;
-
-        // リンクされたオブジェクトのアクティブ状態を切り替える
-        foreach (var obj in linkedObjects)
+        // ターゲットオブジェクトのアクティブ状態を反転
+        if (targetObject != null)
         {
-            if (obj != null)
+            bool newState = !targetObject.activeSelf;
+            if (!newState && activeManager != null)
             {
-                obj.SetActive(newState);
+                // 非アクティブにする前にマネージャーに登録
+                activeManager.RegisterInactiveObject(targetObject);
             }
+            targetObject.SetActive(newState);
         }
     }
 }
