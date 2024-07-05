@@ -4,15 +4,20 @@ using UnityEngine.UI;
 public class GaugeController : MonoBehaviour
 {
     public Slider slider;  // スライダーをアタッチする
+    public Button button;  // ボタンをアタッチする
     public float minSpeed = 0.5f;  // 最小速度
     public float maxSpeed = 3.0f;  // 最大速度
     public float successThreshold = 0.8f;  // 成功と判定する基準の数値
     private bool isFilling = true;  // スライダーが動いているかどうか
     private bool isIncreasing = true;  // スライダーの値が増加しているかどうか
-    private GameObject lastClickedObject;  // 最後にタップされたオブジェクトを記録する
-    private int judgeCount = 0;  // 判定回数を追跡する変数
 
     public MovementController[] movementControllers;  // MovementControllerの配列
+    public ObjectActivator[] objectActivators;  // ObjectActivatorの配列
+
+    void Start()
+    {
+        button.onClick.AddListener(OnButtonClick);  // ボタンにクリックリスナーを追加
+    }
 
     void Update()
     {
@@ -39,53 +44,42 @@ public class GaugeController : MonoBehaviour
                     }
                 }
             }
+        }
+    }
 
-            // タップされたオブジェクトを記録
-            if (Input.GetMouseButtonDown(0))
+    void OnButtonClick()
+    {
+        if (!isFilling) return;  // スライダーが停止している場合は処理しない
+
+        isFilling = false;  // スライダーの動作を停止
+
+        // 判定を行う
+        if (slider.value >= successThreshold)
+        {
+            Debug.Log("Success!");  // 成功した場合の処理
+            AwardItem();  // アイテムを獲得する
+
+            foreach (var movementController in movementControllers)
             {
-                Vector2 rayPos = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x,
-                                             Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
-                RaycastHit2D hit = Physics2D.Raycast(rayPos, Vector2.zero);
-                if (hit && hit.collider != null)
+                if (movementController != null)
                 {
-                    lastClickedObject = hit.collider.gameObject;
+                    movementController.ResumeMovement();  // 成功時に動きを再開する
                 }
             }
+        }
+        else
+        {
+            Debug.Log("Failure.");  // 失敗した場合の処理
+        }
 
-            // 左クリックがあり、記録されたオブジェクトがアクティブな場合にのみ操作を受け付ける
-            if (Input.GetMouseButtonDown(0) && lastClickedObject != null && lastClickedObject.activeInHierarchy)
+        slider.gameObject.SetActive(false);  // 判定後にスライダーを非アクティブにする
+        button.gameObject.SetActive(false);  // ボタンも非アクティブにする
+
+        foreach (var objectActivator in objectActivators)
+        {
+            if (objectActivator != null)
             {
-                isFilling = !isFilling;  // 左クリックで動作の停止と再開を切り替える
-
-                // 2回目の判定で成功か失敗の判定を行う
-                if (!isFilling)
-                {
-                    judgeCount++;  // 判定回数を増加させる
-
-                    if (judgeCount == 2)
-                    {
-                        if (slider.value >= successThreshold)
-                        {
-                            Debug.Log("Success!");  // 成功した場合の処理
-                            AwardItem();  // アイテムを獲得する
-                            lastClickedObject.SetActive(false);  // 成功時にオブジェクトを非アクティブにする
-
-                            foreach (var movementController in movementControllers)
-                            {
-                                if (movementController != null)
-                                {
-                                    movementController.ResumeMovement();  // 成功時に動きを再開する
-                                }
-                            }
-                        }
-                        else
-                        {
-                            Debug.Log("Failure.");  // 失敗した場合の処理
-                        }
-
-                        slider.gameObject.SetActive(false);  // 2回目の判定でスライダーを非アクティブにする
-                    }
-                }
+                objectActivator.Deactivate();  // 成功または失敗時にオブジェクトを非アクティブにする
             }
         }
     }
@@ -104,6 +98,22 @@ public class GaugeController : MonoBehaviour
         slider.value = slider.minValue;  // スライダーの値を初期化
         isFilling = true;  // スライダーの動作を開始
         isIncreasing = true;  // スライダーの増加方向を初期化
-        judgeCount = 0;  // 判定回数をリセット
+    }
+
+    // スライダーとボタンを再アクティブにする関数
+    public void ActivateSliderAndButton()
+    {
+        slider.gameObject.SetActive(true);  // スライダーをアクティブにする
+        button.gameObject.SetActive(true);  // ボタンをアクティブにする
+
+        // UIオブジェクトをリセットして初期位置に設定
+        slider.transform.localPosition = Vector3.zero;
+        button.transform.localPosition = Vector3.zero;
+
+        // スライダーとボタンのサイズをリセット
+        slider.GetComponent<RectTransform>().sizeDelta = new Vector2(160, 30);
+        button.GetComponent<RectTransform>().sizeDelta = new Vector2(160, 30);
+
+        OnEnable();  // スライダーを初期化
     }
 }
