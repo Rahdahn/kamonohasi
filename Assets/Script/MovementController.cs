@@ -1,15 +1,31 @@
 using UnityEngine;
+using UnityEngine.UI;  // Button用に追加
 
 public class MovementController : MonoBehaviour
 {
     public MonoBehaviour[] controlScripts;  // 動きを制御する全スクリプトの参照
     public ObjectAppearanceController appearanceController; // ObjectAppearanceControllerの参照
+    public Button pauseButton;  // 一時停止ボタンの参照
     private Rigidbody2D rb;
     private bool isPaused = false;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        if (rb == null)
+        {
+            Debug.LogError("Rigidbody2D component is missing from the game object.");
+        }
+
+        // ボタンのクリックイベントにリスナーを追加
+        if (pauseButton != null)
+        {
+            pauseButton.onClick.AddListener(TogglePause);
+        }
+        else
+        {
+            Debug.LogError("Pause button is not assigned.");
+        }
     }
 
     void OnMouseDown()
@@ -35,8 +51,11 @@ public class MovementController : MonoBehaviour
         {
             script.enabled = false;
         }
-        rb.isKinematic = true;
-        rb.velocity = Vector2.zero;
+        if (rb != null)
+        {
+            rb.isKinematic = true;
+            rb.velocity = Vector2.zero;
+        }
         isPaused = true;
 
         if (appearanceController != null)
@@ -51,7 +70,10 @@ public class MovementController : MonoBehaviour
         {
             script.enabled = true;
         }
-        rb.isKinematic = false;
+        if (rb != null)
+        {
+            rb.isKinematic = false;
+        }
         isPaused = false;
 
         if (appearanceController != null)
