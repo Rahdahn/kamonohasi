@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;  // スライダー用の名前空間を追加
 
-public class Test : MonoBehaviour
+public class DropArea : MonoBehaviour
 {
     // ドロップ可能オブジェクトリスト
     public List<Draggable> dropObjs;
@@ -14,8 +14,8 @@ public class Test : MonoBehaviour
     public MonoBehaviour dropArea3;
     public MonoBehaviour dropArea4;
 
-    // MixGaugeManager（エディタでアタッチ）
-    public MixGaugeManager mixGaugeManager;
+    // sliderMove1（エディタでアタッチ）
+    public SliderMove1 sliderMove1;
 
     // 各ドロップエリアの状態を追跡する辞書
     private Dictionary<MonoBehaviour, bool> dropAreaOccupied;
@@ -43,6 +43,7 @@ public class Test : MonoBehaviour
 
             dropObj.onDropSuccess = (MonoBehaviour area, Action resetAction) =>
             {
+                Debug.Log("ドラッグ成功時");
 
                 if (dropAreaOccupied[area])
                 {
@@ -58,6 +59,11 @@ public class Test : MonoBehaviour
                     // すべてのドロップエリアが埋まったかチェック
                     CheckAllDropAreasFilled();
                 }
+            };
+            dropObj.onDropFail = (Action resetAction) =>
+            {
+                Debug.Log("ドラッグ失敗時");
+                resetAction.Invoke();
             };
         }
     }
@@ -76,13 +82,12 @@ public class Test : MonoBehaviour
                 return; // まだ埋まっていないエリアがある場合は終了
             }
         }
-        // すべてのエリアが埋まっている場合、MixGaugeManagerを起動
-        StartMixGaugeManager();
+        // すべてのエリアが埋まっている場合、sliderMove1を起動
+        StartsliderMove1();
     }
 
-    void StartMixGaugeManager()
+    void StartsliderMove1()
     {
-        mixGaugeManager.gameObject.SetActive(true); // MixGaugeManagerをアクティブにする
-        mixGaugeManager.Initialize(); // MixGaugeManagerのInitializeメソッドを呼び出す
+        sliderMove1.gameObject.SetActive(true); // sliderMove1をアクティブにする
     }
 }
