@@ -14,9 +14,20 @@ public class GaugeController : MonoBehaviour
     public MovementController[] movementControllers;  // MovementControllerの配列
     public ObjectActivator[] objectActivators;  // ObjectActivatorの配列
 
+    private ActiveManager activeManager;  // ActiveManagerの参照
+
     void Start()
     {
         button.onClick.AddListener(OnButtonClick);  // ボタンにクリックリスナーを追加
+
+        // ActiveManagerを探す
+        activeManager = FindObjectOfType<ActiveManager>();
+        if (activeManager == null)
+        {
+            Debug.LogError("ActiveManager not found in the scene!");
+        }
+
+        gameObject.SetActive(false);  // 初期状態を非アクティブにする
     }
 
     void Update()
@@ -82,6 +93,13 @@ public class GaugeController : MonoBehaviour
                 objectActivator.Deactivate();  // 成功または失敗時にオブジェクトを非アクティブにする
             }
         }
+
+        // 自身を非アクティブにする前にActiveManagerに登録
+        if (activeManager != null)
+        {
+            activeManager.RegisterInactiveObject(this);
+        }
+        gameObject.SetActive(false);
     }
 
     // アイテムを獲得するための関数
@@ -106,14 +124,21 @@ public class GaugeController : MonoBehaviour
         slider.gameObject.SetActive(true);  // スライダーをアクティブにする
         button.gameObject.SetActive(true);  // ボタンをアクティブにする
 
-        // UIオブジェクトをリセットして初期位置に設定
-        slider.transform.localPosition = Vector3.zero;
-        button.transform.localPosition = Vector3.zero;
+        ResetSlider();  // スライダーを初期化
+    }
 
-        // スライダーとボタンのサイズをリセット
-        slider.GetComponent<RectTransform>().sizeDelta = new Vector2(160, 30);
-        button.GetComponent<RectTransform>().sizeDelta = new Vector2(160, 30);
+    // オブジェクトを再アクティブ化するための関数
+    public void Reactivate()
+    {
+        gameObject.SetActive(true);  // オブジェクトをアクティブにする
+        ActivateSliderAndButton();  // スライダーとボタンを再アクティブにする
+    }
 
-        OnEnable();  // スライダーを初期化
+    // スライダーを初期化する関数
+    private void ResetSlider()
+    {
+        slider.value = slider.minValue;  // スライダーの値を初期化
+        isFilling = true;  // スライダーの動作を開始
+        isIncreasing = true;  // スライダーの増加方向を初期化
     }
 }
