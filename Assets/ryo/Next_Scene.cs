@@ -7,6 +7,6 @@ public class NextScene : MonoBehaviour
 {
     public void cange_button()
     {
-        SceneManager.LoadScene("MixScene");
+        SceneManager.LoadScene("MixScene(Test)");
     }
 }
