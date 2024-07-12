@@ -34,7 +34,7 @@ public class SliderMove1 : MonoBehaviour
         }
         if (isClicked)
         {
-            if (currentSlider.value >= 4.5 && currentSlider.value <= 5.5)
+            if (currentSlider.value >= 4 && currentSlider.value <= 6)
             {
                 currentSlider.gameObject.SetActive(false); 
                 nextSlider.gameObject.SetActive(true); 

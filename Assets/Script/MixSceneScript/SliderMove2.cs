@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,7 +15,7 @@ public class SliderMove2 : MonoBehaviour
     void Start()
     {
         currentSlider.value = 0;
-        nextSlider.gameObject.SetActive(false); 
+        nextSlider.gameObject.SetActive(false);
         maxValue = false;
         isClicked = false;
     }
@@ -35,15 +36,15 @@ public class SliderMove2 : MonoBehaviour
         {
             if (currentSlider.value >= 4.5 && currentSlider.value <= 5.5)
             {
-                currentSlider.gameObject.SetActive(false); 
-                nextSlider.gameObject.SetActive(true); 
-                nextSlider.value = 0; 
+                currentSlider.gameObject.SetActive(false);
+                nextSlider.gameObject.SetActive(true);
+                nextSlider.value = 0;
                 UnityEngine.Debug.Log("成功");
             }
             else
             {
                 UnityEngine.Debug.Log("失敗");
-                
+                SceneManager.LoadScene("ResultButScene");
             }
             return;
         }

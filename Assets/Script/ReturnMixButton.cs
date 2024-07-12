@@ -16,6 +16,6 @@ public class ReturnMixButton : MonoBehaviour
 
     void OnTitleButtonClick()
     {
-        SceneManager.LoadScene("MixScene");
+        SceneManager.LoadScene("MixScene(Test)");
     }
 }
