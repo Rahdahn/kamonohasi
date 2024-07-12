@@ -33,10 +33,15 @@ public class SlideMove4 : MonoBehaviour
         }
         if (isClicked)
         {
-            if (currentSlider.value >= 4.5 && currentSlider.value <= 5.5)
+            if (currentSlider.value >= 4 && currentSlider.value <= 6)
             {
                 UnityEngine.Debug.Log("¬Œ÷");
                 SceneManager.LoadScene("ResultScene");
+            }
+            else
+            {
+                UnityEngine.Debug.Log("Ž¸”s");
+                SceneManager.LoadScene("ResultButScene");
             }
             return;
         }
@@ -52,12 +57,12 @@ public class SlideMove4 : MonoBehaviour
 
         if (maxValue == true)
         {
-            currentSlider.value -= 0.03f;
+            currentSlider.value -= 0.08f;
         }
 
         if (maxValue == false)
         {
-            currentSlider.value += 0.03f;
+            currentSlider.value += 0.08f;
         }
     }
 }

@@ -34,7 +34,7 @@ public class SliderMove3 : MonoBehaviour
         }
         if (isClicked)
         {
-            if (currentSlider.value >= 4.5 && currentSlider.value <= 5.5)
+            if (currentSlider.value >= 8 && currentSlider.value <= 10)
             {
                 currentSlider.gameObject.SetActive(false); 
                 nextSlider.gameObject.SetActive(true); 
@@ -60,12 +60,12 @@ public class SliderMove3 : MonoBehaviour
 
         if (maxValue == true)
         {
-            currentSlider.value -= 0.03f;
+            currentSlider.value -= 0.07f;
         }
 
         if (maxValue == false)
         {
-            currentSlider.value += 0.03f;
+            currentSlider.value += 0.07f;
         }
     }
 }
