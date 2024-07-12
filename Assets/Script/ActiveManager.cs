@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class ActiveManager : MonoBehaviour
 {
-    private List<GameObject> inactiveObjects = new List<GameObject>();
+    private List<GaugeController> inactiveObjects = new List<GaugeController>();
 
     void Update()
     {
@@ -14,7 +14,7 @@ public class ActiveManager : MonoBehaviour
         }
     }
 
-    public void RegisterInactiveObject(GameObject obj)
+    public void RegisterInactiveObject(GaugeController obj)
     {
         if (!inactiveObjects.Contains(obj))
         {
@@ -28,7 +28,7 @@ public class ActiveManager : MonoBehaviour
         {
             if (obj != null)
             {
-                obj.SetActive(true);
+                obj.Reactivate();
             }
         }
         inactiveObjects.Clear();

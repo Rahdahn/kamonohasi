@@ -840,6 +840,7 @@ GameObject:
   - component: {fileID: 388698242}
   - component: {fileID: 388698243}
   - component: {fileID: 388698244}
+  - component: {fileID: 388698245}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -958,7 +959,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 657bd746701e54249aeeb09ca984367f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetObject: {fileID: 388698237}
+  targetObjects: []
+--- !u!114 &388698245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 388698237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e1474c4bc2aa14699b7ed77acdff1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slider: {fileID: 1188122656}
+  button: {fileID: 1308251919}
+  minSpeed: 0.5
+  maxSpeed: 3
+  successThreshold: 0.8
+  movementControllers: []
+  objectActivators: []
 --- !u!1 &477007727
 GameObject:
   m_ObjectHideFlags: 0
@@ -1827,7 +1847,7 @@ Transform:
   m_GameObject: {fileID: 911483503}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -28.119833, y: 6.6842585, z: 0}
+  m_LocalPosition: {x: -39.1, y: -15.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1954,7 +1974,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: 21300000, guid: 08ea8b43f435af444bf7fa44d395339e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1599a13fe7c43544798dfccc8505fbf0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1975,7 +1995,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -961, y: -490, z: -0.3}
-  m_LocalScale: {x: 1.3467395, y: 1.3467395, z: 1.3467395}
+  m_LocalScale: {x: 18.608889, y: 18.608889, z: 18.608889}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 66068450}
@@ -2058,7 +2078,7 @@ Transform:
   m_GameObject: {fileID: 1056238743}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.1002487, y: 6.5673018, z: 0}
+  m_LocalPosition: {x: 12.8, y: -6.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2331,8 +2351,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider: {fileID: 1188122656}
   button: {fileID: 1308251919}
-  minSpeed: 0.5
-  maxSpeed: 3
+  minSpeed: 0.3
+  maxSpeed: 0
   successThreshold: 0.8
   movementControllers:
   - {fileID: 1996898839}
@@ -2354,6 +2374,7 @@ GameObject:
   - component: {fileID: 1220374971}
   - component: {fileID: 1220374972}
   - component: {fileID: 1220374973}
+  - component: {fileID: 1220374974}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -2430,7 +2451,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 657bd746701e54249aeeb09ca984367f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetObject: {fileID: 1220374967}
+  targetObjects: []
 --- !u!50 &1220374972
 Rigidbody2D:
   serializedVersion: 4
@@ -2473,6 +2494,25 @@ MonoBehaviour:
   movementControllers:
   - {fileID: 1996898839}
   - {fileID: 549569514}
+--- !u!114 &1220374974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1220374967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e1474c4bc2aa14699b7ed77acdff1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slider: {fileID: 1188122656}
+  button: {fileID: 1308251919}
+  minSpeed: 0.5
+  maxSpeed: 3
+  successThreshold: 0.8
+  movementControllers: []
+  objectActivators: []
 --- !u!1 &1253112601
 GameObject:
   m_ObjectHideFlags: 0
@@ -4021,7 +4061,7 @@ Transform:
   m_GameObject: {fileID: 1797957725}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -17.409903, y: 4.8964853, z: 0}
+  m_LocalPosition: {x: -41, y: -6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

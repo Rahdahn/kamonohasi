@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class ActiveSwitch : MonoBehaviour
 {
-    public GameObject targetObject;
+    public GameObject[] targetObjects;  // 切り替え対象のオブジェクトの配列
     private ActiveManager activeManager;
 
     void Start()
     {
-        // targetObjectが設定されていない場合、自分自身をターゲットとする
-        if (targetObject == null)
+        // ターゲットオブジェクトが設定されていない場合、自分自身をターゲットとする
+        if (targetObjects == null || targetObjects.Length == 0)
         {
-            targetObject = gameObject;
+            targetObjects = new GameObject[] { gameObject };
         }
 
         // ActiveManagerを探す
@@ -38,15 +38,18 @@ public class ActiveSwitch : MonoBehaviour
     private void ToggleActiveState()
     {
         // ターゲットオブジェクトのアクティブ状態を反転
-        if (targetObject != null)
+        foreach (var obj in targetObjects)
         {
-            bool newState = !targetObject.activeSelf;
-            if (!newState && activeManager != null)
+            if (obj != null)
             {
-                // 非アクティブにする前にマネージャーに登録
-                activeManager.RegisterInactiveObject(targetObject);
+                bool newState = !obj.activeSelf;
+                if (!newState && activeManager != null)
+                {
+                    // 非アクティブにする前にマネージャーに登録
+                    activeManager.RegisterInactiveObject(obj.GetComponent<GaugeController>());
+                }
+                obj.SetActive(newState);
             }
-            targetObject.SetActive(newState);
         }
     }
 }
