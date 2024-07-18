@@ -57,12 +57,12 @@ public class SlideMove4 : MonoBehaviour
 
         if (maxValue == true)
         {
-            currentSlider.value -= 0.08f;
+            currentSlider.value -= 0.06f;
         }
 
         if (maxValue == false)
         {
-            currentSlider.value += 0.08f;
+            currentSlider.value += 0.06f;
         }
     }
 }
