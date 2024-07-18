@@ -7,7 +7,7 @@ public class DisplayPercentage : MonoBehaviour
     // TextMeshProコンポーネントへの参照
     public TextMeshProUGUI percentageText;
 
-    // 24個のイメージを保持する配列
+    // 25個のイメージを保持する配列
     public UnityEngine.UI.Image[] images;
 
     void Start()
@@ -17,7 +17,7 @@ public class DisplayPercentage : MonoBehaviour
         string order = PlayerPrefs.GetString("DropOrder", "");
 
         // パーセンテージをテキストに変換し、TextMeshProコンポーネントに設定
-        percentageText.text = $"{percentage}% カモノハシ！";
+        percentageText.text = $"{percentage}％\nカモノハシ！";
 
         // イメージを表示
         ShowImageByOrder(order);
@@ -58,7 +58,7 @@ public class DisplayPercentage : MonoBehaviour
             case "D3,D4,D5,D1": images[21].gameObject.SetActive(true); break;
             case "D3,D5,D4,D1": images[22].gameObject.SetActive(true); break;
             case "D3,D5,D1,D4": images[23].gameObject.SetActive(true); break;
-            default: UnityEngine.Debug.Log("Unknown order: " + order); break;
+            default: images[24].gameObject.SetActive(true); break;
         }
     }
 }
