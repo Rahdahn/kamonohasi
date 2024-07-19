@@ -41,7 +41,7 @@ public class SlideMove4 : MonoBehaviour
             else
             {
                 UnityEngine.Debug.Log("Ž¸”s");
-                SceneManager.LoadScene("ResultScene");
+                SceneManager.LoadScene("ResultButScene");
             }
             return;
         }
