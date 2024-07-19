@@ -122,7 +122,7 @@ public class DropArea : MonoBehaviour
             { "D4,D1,D5,D3", 33.8f },
             { "D4,D3,D1,D5", 79.7f },
             { "D4,D3,D5,D1", 53.4f },
-            { "D3,D1,D4,D5", 99.9f },
+            { "D3,D1,D4,D5", 100.0f },
             { "D3,D1,D5,D4", 95.2f },
             { "D3,D4,D1,D5", 55.7f },
             { "D3,D4,D5,D1", 2.3f },
