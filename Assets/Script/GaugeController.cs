@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;  // TextMeshProの名前空間を追加
 
 public class GaugeController : MonoBehaviour
 {
@@ -16,6 +17,9 @@ public class GaugeController : MonoBehaviour
 
     private ActiveManager activeManager;  // ActiveManagerの参照
 
+    // TextMeshProの参照を追加
+    public TextMeshProUGUI resultText;
+
     void Start()
     {
         button.onClick.AddListener(OnButtonClick);  // ボタンにクリックリスナーを追加
@@ -28,6 +32,12 @@ public class GaugeController : MonoBehaviour
         }
 
         gameObject.SetActive(false);  // 初期状態を非アクティブにする
+
+        // TextMeshProの初期状態を非表示にする
+        if (resultText != null)
+        {
+            resultText.gameObject.SetActive(false);
+        }
     }
 
     void Update()
@@ -77,10 +87,16 @@ public class GaugeController : MonoBehaviour
                     movementController.ResumeMovement();  // 成功時に動きを再開する
                 }
             }
+
+            // 成功メッセージを表示
+            DisplayResult("Success!");
         }
         else
         {
             Debug.Log("Failure.");  // 失敗した場合の処理
+
+            // 失敗メッセージを表示
+            DisplayResult("Failure.");
         }
 
         slider.gameObject.SetActive(false);  // 判定後にスライダーを非アクティブにする
@@ -140,5 +156,25 @@ public class GaugeController : MonoBehaviour
         slider.value = slider.minValue;  // スライダーの値を初期化
         isFilling = true;  // スライダーの動作を開始
         isIncreasing = true;  // スライダーの増加方向を初期化
+    }
+
+    // 判定結果を表示する関数
+    private void DisplayResult(string message)
+    {
+        if (resultText != null)
+        {
+            resultText.text = message;  // テキストを設定
+            resultText.gameObject.SetActive(true);  // テキストを表示
+            Invoke("HideResult", 2f);  // 2秒後に非表示にする
+        }
+    }
+
+    // 判定結果を非表示にする関数
+    private void HideResult()
+    {
+        if (resultText != null)
+        {
+            resultText.gameObject.SetActive(false);  // テキストを非表示
+        }
     }
 }
