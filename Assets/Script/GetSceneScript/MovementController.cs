@@ -135,5 +135,17 @@ public class MovementController : MonoBehaviour
         {
             gaugeImage2.gameObject.SetActive(false);
         }
+
+        // ボタンを再表示する
+        CheckAndShowPauseButton();
+    }
+
+    // ボタンを再表示するメソッド
+    private void CheckAndShowPauseButton()
+    {
+        if (pauseButton != null && (gaugeImage1.gameObject.activeSelf || gaugeImage2.gameObject.activeSelf))
+        {
+            pauseButton.gameObject.SetActive(true);
+        }
     }
 }

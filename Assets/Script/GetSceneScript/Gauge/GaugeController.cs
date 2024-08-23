@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -7,15 +6,15 @@ public class GaugeController : MonoBehaviour
 {
     public Slider slider;
     public Button button;
-    public float minSpeed = 0.5f;
-    public float maxSpeed = 3.0f;
+    public float minSpeed = 0.1f; // スライダーの最小スピード
+    public float maxSpeed = 0.5f; // スライダーの最大スピード
     public float successThreshold = 0.8f;
     private bool isFilling = true;
     private bool isIncreasing = true;
 
     public MovementController[] movementControllers;
     public ObjectActivator[] objectActivators;
-    public RandomMover[] randomMovers;  // RandomMover の参照を追加
+    public RandomMover[] randomMovers;
 
     private ActiveManager activeManager;
 
@@ -47,7 +46,7 @@ public class GaugeController : MonoBehaviour
         {
             if (isFilling)
             {
-                float speed = Mathf.Lerp(minSpeed, maxSpeed, slider.value);
+                float speed = Mathf.Lerp(minSpeed, maxSpeed, slider.value / slider.maxValue);
 
                 if (isIncreasing)
                 {
@@ -79,49 +78,61 @@ public class GaugeController : MonoBehaviour
         {
             Debug.Log("Success!");
             AwardItem();
-
-            // 成功時の処理
-            foreach (var movementController in movementControllers)
-            {
-                if (movementController != null)
-                {
-                    movementController.ResumeMovement();
-                }
-            }
-
-            foreach (var randomMover in randomMovers)
-            {
-                if (randomMover != null)
-                {
-                    randomMover.ResumeMovement();  // 一時停止を解除
-                }
-            }
-
-            DisplayResult("Success!");
+            HandleSuccess();
         }
         else
         {
             Debug.Log("Failure.");
-            DisplayResult("Failure.");
+            HandleFailure();
+        }
 
-            // 失敗時の処理
-            foreach (var movementController in movementControllers)
-            {
-                if (movementController != null)
-                {
-                    movementController.ResumeMovement();
-                }
-            }
+        UpdateGaugeController();
+    }
 
-            foreach (var randomMover in randomMovers)
+    void HandleSuccess()
+    {
+        foreach (var movementController in movementControllers)
+        {
+            if (movementController != null)
             {
-                if (randomMover != null)
-                {
-                    randomMover.ResumeMovement();  // 一時停止を解除
-                }
+                movementController.ResumeMovement();
             }
         }
 
+        foreach (var randomMover in randomMovers)
+        {
+            if (randomMover != null)
+            {
+                randomMover.ResumeMovement();
+            }
+        }
+
+        DisplayResult("Success!");
+    }
+
+    void HandleFailure()
+    {
+        foreach (var movementController in movementControllers)
+        {
+            if (movementController != null)
+            {
+                movementController.ResumeMovement();
+            }
+        }
+
+        foreach (var randomMover in randomMovers)
+        {
+            if (randomMover != null)
+            {
+                randomMover.ResumeMovement();
+            }
+        }
+
+        DisplayResult("Failure.");
+    }
+
+    void UpdateGaugeController()
+    {
         slider.gameObject.SetActive(false);
         button.gameObject.SetActive(false);
 
@@ -139,6 +150,7 @@ public class GaugeController : MonoBehaviour
         {
             activeManager.RegisterInactiveObject(this);
         }
+
         gameObject.SetActive(false);
     }
 
@@ -217,5 +229,14 @@ public class GaugeController : MonoBehaviour
     public void StopFilling()
     {
         isFilling = false;
+    }
+
+    // ボタンを再表示するメソッド
+    public void ShowButton()
+    {
+        if (button != null)
+        {
+            button.gameObject.SetActive(true);
+        }
     }
 }

@@ -961,9 +961,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 657bd746701e54249aeeb09ca984367f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetObjects:
-  - {fileID: 0}
-  - {fileID: 0}
+  targetObjects: []
 --- !u!114 &388698245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -978,8 +976,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider: {fileID: 1188122656}
   button: {fileID: 1308251919}
-  minSpeed: 0.5
-  maxSpeed: 3
+  minSpeed: 1
+  maxSpeed: 1.3
   successThreshold: 0.8
   movementControllers:
   - {fileID: 1996898839}
@@ -987,7 +985,9 @@ MonoBehaviour:
   objectActivators:
   - {fileID: 388698243}
   - {fileID: 1220374973}
-  randomMovers: []
+  randomMovers:
+  - {fileID: 1996898845}
+  - {fileID: 549569524}
   resultText: {fileID: 1932176360}
   objectsToToggle: []
 --- !u!114 &388698246
@@ -2158,6 +2158,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1188122657}
   - component: {fileID: 1188122656}
+  - component: {fileID: 1188122658}
   m_Layer: 5
   m_Name: Get
   m_TagString: Untagged
@@ -2239,6 +2240,20 @@ RectTransform:
   m_AnchoredPosition: {x: 1389, y: -182}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1188122658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1188122655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc47434b0034b7c458d81589d43032ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slider: {fileID: 1188122656}
+  fillSpeed: 0
 --- !u!1 &1220374967
 GameObject:
   m_ObjectHideFlags: 0
@@ -4725,6 +4740,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1690238252283859193, guid: 77927510924c8784fa8ed9f0a35c3890, type: 3}
+      propertyPath: objectsToPause.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1690238252283859193, guid: 77927510924c8784fa8ed9f0a35c3890, type: 3}
       propertyPath: controlScripts.Array.data[0]
       value: 
       objectReference: {fileID: 1996898846}
@@ -4736,6 +4755,14 @@ PrefabInstance:
       propertyPath: controlScripts.Array.data[2]
       value: 
       objectReference: {fileID: 1960329601}
+    - target: {fileID: 1690238252283859193, guid: 77927510924c8784fa8ed9f0a35c3890, type: 3}
+      propertyPath: objectsToPause.Array.data[0]
+      value: 
+      objectReference: {fileID: 1996898831}
+    - target: {fileID: 1690238252283859193, guid: 77927510924c8784fa8ed9f0a35c3890, type: 3}
+      propertyPath: objectsToPause.Array.data[1]
+      value: 
+      objectReference: {fileID: 549569505}
     - target: {fileID: 3831059244055524019, guid: 77927510924c8784fa8ed9f0a35c3890, type: 3}
       propertyPath: m_Name
       value: Kamo
