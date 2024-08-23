@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -14,12 +15,12 @@ public class GaugeController : MonoBehaviour
 
     public MovementController[] movementControllers;
     public ObjectActivator[] objectActivators;
+    public RandomMover[] randomMovers;  // RandomMover の参照を追加
 
     private ActiveManager activeManager;
 
     public TextMeshProUGUI resultText;
 
-    // アクティブ状態を切り替える対象のオブジェクト（複数）
     public GameObject[] objectsToToggle;
 
     void Start()
@@ -79,11 +80,20 @@ public class GaugeController : MonoBehaviour
             Debug.Log("Success!");
             AwardItem();
 
+            // 成功時の処理
             foreach (var movementController in movementControllers)
             {
                 if (movementController != null)
                 {
                     movementController.ResumeMovement();
+                }
+            }
+
+            foreach (var randomMover in randomMovers)
+            {
+                if (randomMover != null)
+                {
+                    randomMover.ResumeMovement();  // 一時停止を解除
                 }
             }
 
@@ -94,11 +104,20 @@ public class GaugeController : MonoBehaviour
             Debug.Log("Failure.");
             DisplayResult("Failure.");
 
+            // 失敗時の処理
             foreach (var movementController in movementControllers)
             {
                 if (movementController != null)
                 {
                     movementController.ResumeMovement();
+                }
+            }
+
+            foreach (var randomMover in randomMovers)
+            {
+                if (randomMover != null)
+                {
+                    randomMover.ResumeMovement();  // 一時停止を解除
                 }
             }
         }

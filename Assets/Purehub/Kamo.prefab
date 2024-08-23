@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6291155962361492023}
   - component: {fileID: 7721801197569428730}
   - component: {fileID: 6758628269952289694}
-  - component: {fileID: 7974124916708536687}
   - component: {fileID: 7568663928124463801}
   - component: {fileID: 6692355953460977458}
   - component: {fileID: 1690238252283859193}
@@ -134,27 +133,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 23.025629, y: 16.38644}
   m_EdgeRadius: 0
---- !u!114 &7974124916708536687
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3831059244055524019}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a11ce97270eece9448f39ce67e24f688, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startLocation: {fileID: 0}
-  goalLocation: {fileID: 0}
-  relayPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  speed: 30
-  cooldownTime: 2
 --- !u!114 &7568663928124463801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,6 +185,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29e861e9318bd5d40b8f4ac2480eb827, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 0}
-  zoomSpeed: 0.1
-  targetOrthographicSize: 10
+  controlScripts: []
+  appearanceController: {fileID: 0}
+  pauseButton: {fileID: 0}
+  gaugeController: {fileID: 0}
+  gaugeSlider: {fileID: 0}
+  gaugeImage1: {fileID: 0}
+  gaugeImage2: {fileID: 0}
