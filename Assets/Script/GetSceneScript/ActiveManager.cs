@@ -5,12 +5,14 @@ public class ActiveManager : MonoBehaviour
 {
     private List<GaugeController> inactiveObjects = new List<GaugeController>();
 
-    void Update()
+    // このスクリプトがアタッチされるオブジェクトにBoxCollider2Dが必要です
+
+    void Start()
     {
-        // スペースキーを押したときに非アクティブオブジェクトをアクティブにする
-        if (Input.GetKeyDown(KeyCode.Space))
+        // BoxCollider2Dがアタッチされているか確認
+        if (GetComponent<BoxCollider2D>() == null)
         {
-            ReactivateObjects();
+            Debug.LogError("This object needs a BoxCollider2D component!");
         }
     }
 
@@ -20,6 +22,12 @@ public class ActiveManager : MonoBehaviour
         {
             inactiveObjects.Add(obj);
         }
+    }
+
+    void OnMouseDown()
+    {
+        // マウスがこのオブジェクトをクリックしたときに非アクティブオブジェクトをアクティブにする
+        ReactivateObjects();
     }
 
     private void ReactivateObjects()
