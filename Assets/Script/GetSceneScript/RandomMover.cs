@@ -27,7 +27,7 @@ public class RandomMover : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Target Object is not assigned in the Inspector.");
+            Debug.LogError("Target Object が指定されていません。");
         }
     }
 
@@ -45,12 +45,11 @@ public class RandomMover : MonoBehaviour
         }
     }
 
-    // 初期設定と移動を設定するコルーチン
     IEnumerator SetupMovement()
     {
         while (true)
         {
-            if (targetObject != null)
+            if (targetObject != null && !isPaused)
             {
                 targetPosition = GetRandomPosition();
                 isMoving = true;
@@ -58,12 +57,11 @@ public class RandomMover : MonoBehaviour
             }
             else
             {
-                yield break; // targetObject が null の場合、コルーチンを終了
+                yield return null;
             }
         }
     }
 
-    // ランダムな目標位置を取得
     Vector2 GetRandomPosition()
     {
         float randomX = Random.Range(-moveRangeX, moveRangeX);
@@ -71,63 +69,70 @@ public class RandomMover : MonoBehaviour
         return new Vector2(originalPosition.x + randomX, originalPosition.y + randomY);
     }
 
-    // 目標位置を設定するコルーチン
     IEnumerator SetRandomTargetPosition()
     {
-        targetPosition = GetRandomPosition();
-        yield return null; // 次のフレームでの移動開始
+        if (!isPaused)
+        {
+            targetPosition = GetRandomPosition();
+        }
+        yield return null;
     }
 
-    // 他のスクリプトから呼び出される成功判定を受け取るメソッド
     public void OnSuccess()
     {
         StartCoroutine(Respawn());
     }
 
-    // オブジェクトを画面外に移動させ、一定時間後にリスポーンさせるコルーチン
     IEnumerator Respawn()
     {
         if (targetObject != null)
         {
-            // 一時停止する
             isMoving = false;
-            Debug.Log("Target object moved off-screen.");
+            Debug.Log("ターゲットオブジェクトが画面外に移動しました。");
 
-            // 画面外に移動させる
             Vector2 offScreenPosition = (Vector2)targetObject.transform.position + offScreenOffset;
             targetObject.transform.position = offScreenPosition;
 
-            // リスポーンまで待機
             yield return new WaitForSeconds(respawnDelay);
 
-            // リスポーン処理
-            Debug.Log("Target object moved back to the original position.");
-
-            // 元の位置に戻す
+            Debug.Log("ターゲットオブジェクトが元の位置に戻りました。");
             targetObject.transform.position = originalPosition;
-            StartCoroutine(SetupMovement()); // 移動再開
+            StartCoroutine(SetupMovement());
         }
     }
 
-    // 一時停止機能を連動させるためのメソッド
     public void PauseMovement()
     {
         isPaused = true;
-        Debug.Log("Movement paused.");
+        isMoving = false;
+        Debug.Log("移動が一時停止されました。");
     }
 
     public void ResumeMovement()
     {
         isPaused = false;
-        Debug.Log("Movement resumed.");
+        isMoving = true;
+        Debug.Log("移動が再開されました。");
+        StartCoroutine(SetupMovement()); // 再び移動を開始
     }
 
-    // Gizmos を使用して移動範囲を表示
+    // マウスクリックを検知してポーズ状態を切り替える
+    void OnMouseDown()
+    {
+        if (isPaused)
+        {
+            ResumeMovement();
+        }
+        else
+        {
+            PauseMovement();
+        }
+    }
+
     void OnDrawGizmos()
     {
         if (targetObject != null)
         {
-            // 移動範囲の中心位置を表示
             Gizmos.color = Color.green;
             Vector3 gizmoCenter = new Vector3(originalPosition.x, originalPosition.y, 0) + new Vector3(gizmoOffset.x, gizmoOffset.y, 0);
             Gizmos.DrawWireCube(gizmoCenter, new Vector3(moveRangeX * 2, moveRangeY * 2, 0));

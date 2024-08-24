@@ -2372,9 +2372,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fab7194b7f7c3242a9463b7348e0184, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementControllers:
-  - {fileID: 1996898839}
-  - {fileID: 549569514}
+  movementControllers: []
 --- !u!114 &1220374974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4810,6 +4808,14 @@ PrefabInstance:
     - target: {fileID: 6758628269952289694, guid: 77927510924c8784fa8ed9f0a35c3890, type: 3}
       propertyPath: m_IsTrigger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7568663928124463801, guid: 77927510924c8784fa8ed9f0a35c3890, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7568663928124463801, guid: 77927510924c8784fa8ed9f0a35c3890, type: 3}
+      propertyPath: minimumMovementThreshold
+      value: 0.001
       objectReference: {fileID: 0}
     - target: {fileID: 7721801197569428730, guid: 77927510924c8784fa8ed9f0a35c3890, type: 3}
       propertyPath: m_Sprite
