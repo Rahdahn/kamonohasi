@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Script/GetSceneScript/Animal.cs.meta
 guid: f33ad3a7408c772428c3352880c2eb78
+========
+guid: 9ffa3e1d4e4f07742815f8861dbd8b15
+>>>>>>>> 457fdfa6479a51bd306bec74465d155b2d58faa0:Assets/Script/GetSceneScript/Gauge/GaugeControlManager.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
