@@ -60,12 +60,12 @@ public class SliderMove3 : MonoBehaviour
 
         if (maxValue == true)
         {
-            currentSlider.value -= 0.07f;
+            currentSlider.value -= 0.05f;
         }
 
         if (maxValue == false)
         {
-            currentSlider.value += 0.07f;
+            currentSlider.value += 0.05f;
         }
     }
 }
