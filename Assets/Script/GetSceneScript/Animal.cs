@@ -2,15 +2,36 @@ using UnityEngine;
 
 public enum AnimalType
 {
-    D1,
-    D2,
-    D3,
-    D4,
-    D5
+    D1, D2, D3, D4, D5
 }
 
 public class Animal : MonoBehaviour
 {
     public AnimalType type;
-    // 他に必要な動物の情報や振る舞いを追加することができます
+    private AnimalMovement animalMovement; // AnimalMovement コンポーネントへの参照
+
+    private void Start()
+    {
+        animalMovement = GetComponent<AnimalMovement>();
+        if (animalMovement == null)
+        {
+            UnityEngine.Debug.LogError("AnimalMovement component is missing from this GameObject.");
+        }
+    }
+
+    public void StopMoving()
+    {
+        if (animalMovement != null)
+        {
+            animalMovement.StopMoving(); // AnimalMovement の StopMoving メソッドを呼び出す
+        }
+    }
+
+    public void StartMoving()
+    {
+        if (animalMovement != null)
+        {
+            animalMovement.StartMoving(); // AnimalMovement の StartMoving メソッドを呼び出す
+        }
+    }
 }

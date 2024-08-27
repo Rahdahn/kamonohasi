@@ -47,3 +47,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Gauge
+    uniqueID: 3260630757
+    locked: 0
