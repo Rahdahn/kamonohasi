@@ -1,23 +1,19 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
-using MiniGames;
 
 public class GetGameManager : MonoBehaviour
 {
-    public GameObject[] animalPrefabs;
-    public int numberOfAnimals = 5;
-    public Vector2 spawnAreaMin = new Vector2(-5, -5);
-    public Vector2 spawnAreaMax = new Vector2(5, 5);
-    public GaugeCaptureMiniGame gaugeMiniGame; // ゲージミニゲームの参照
+    public GameObject[] animalPrefabs;  // 動物のプレハブを格納する配列
+    public int numberOfAnimals = 5;     // 生成する動物の数
+    public Vector2 spawnAreaMin = new Vector2(-5, -5);  // スポーンエリアの最小値
+    public Vector2 spawnAreaMax = new Vector2(5, 5);    // スポーンエリアの最大値
 
-    private List<Animal> capturedAnimals = new List<Animal>();
-    private ICaptureMiniGame currentMiniGame;
+    private List<Animal> capturedAnimals = new List<Animal>();  // 捕獲した動物を保持するリスト
 
     private void Start()
     {
-        SpawnAnimals();
-        currentMiniGame = gaugeMiniGame; // 初期状態でゲージミニゲームを設定
+        SpawnAnimals();  // ゲーム開始時に動物を生成
     }
 
     private void Update()
@@ -32,34 +28,19 @@ public class GetGameManager : MonoBehaviour
                 Animal animal = hit.collider.GetComponent<Animal>();
                 if (animal != null)
                 {
-                    StartCaptureMiniGame(animal);
+                    // ミニゲームを始める代わりに、動物を直接捕獲
+                    CaptureAnimal(animal);
                 }
             }
         }
-    }
-
-    private void StartCaptureMiniGame(Animal animal)
-    {
-        // ミニゲームを開始し、結果をコールバックで受け取る
-        currentMiniGame.StartMiniGame((isSuccess) =>
-        {
-            if (isSuccess)
-            {
-                CaptureAnimal(animal);
-            }
-            else
-            {
-                UnityEngine.Debug.Log("Capture failed!");
-            }
-        });
     }
 
     private void CaptureAnimal(Animal animal)
     {
         capturedAnimals.Add(animal);
         UnityEngine.Debug.Log($"Captured Animal: {animal.type}");
-        Destroy(animal.gameObject);
-        SaveCapturedAnimals();
+        Destroy(animal.gameObject);  // 動物を削除
+        SaveCapturedAnimals();       // 捕獲した動物を保存
     }
 
     private void SaveCapturedAnimals()
