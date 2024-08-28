@@ -1,5 +1,9 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using System.Diagnostics;
+using System;
 
 public class GetGameManager : MonoBehaviour
 {
@@ -7,9 +11,15 @@ public class GetGameManager : MonoBehaviour
     public int numberOfAnimals = 5;
     public Vector2 spawnAreaMin = new Vector2(-5, -5);
     public Vector2 spawnAreaMax = new Vector2(5, 5);
-    public Camera mainCamera; // カメラへの参照を追加
+
     public ClickZoom clickZoomScript;
     public GaugeMiniGame gaugeMiniGameScript;
+    public GameObject backgroundOverlay;
+    public Camera mainCamera;
+
+    // TextMeshProの参照を追加
+    public TextMeshProUGUI successText;
+    public TextMeshProUGUI failureText;
 
     private List<Animal> capturedAnimals = new List<Animal>();
     private Animal currentAnimal;
@@ -34,6 +44,10 @@ public class GetGameManager : MonoBehaviour
                     currentAnimal = animal;
                     currentAnimal.StopMoving();  // 動物の動きを止める
                     clickZoomScript.StartZoom(animal.transform.position);
+
+                    // オーバーレイと動物のOrder in Layerを調整
+                    backgroundOverlay.GetComponent<SpriteRenderer>().sortingOrder = 90;
+                    animal.GetComponent<SpriteRenderer>().sortingOrder = 100;
                 }
             }
         }
@@ -46,17 +60,45 @@ public class GetGameManager : MonoBehaviour
 
     private void OnMiniGameComplete(bool isSuccess)
     {
+        // 成功または失敗時の動作を1秒待ってから行う
+        StartCoroutine(HandleMiniGameResult(isSuccess));
+    }
+
+    private IEnumerator HandleMiniGameResult(bool isSuccess)
+    {
+        if (isSuccess && currentAnimal != null)
+        {
+            ShowSuccessText(); // 成功時のテキストを表示
+        }
+        else
+        {
+            ShowFailureText(); // 失敗時のテキストを表示
+            if (currentAnimal != null)
+            {
+                currentAnimal.StartMoving();  // 失敗時は動物を再び動かす
+            }
+        }
+
+        // 1秒待つ
+        yield return new WaitForSeconds(1f);
+
+        // テキストを非表示にする
+        HideSuccessText();
+        HideFailureText();
+
+        // 成功時に動物を捕獲する
         if (isSuccess && currentAnimal != null)
         {
             CaptureAnimal(currentAnimal);
-            clickZoomScript.ResetZoom();
         }
-        else if (currentAnimal != null)
-        {
-            // 獲得に失敗した場合に動物の動きを再開する
-            currentAnimal.StartMoving();
-            clickZoomScript.ResetZoom();
-        }
+
+        // カメラのサイズを元に戻す
+        mainCamera.orthographicSize = 5f;
+
+        // ズームをリセットする
+        clickZoomScript.ResetZoom();
+
+        // 現在の動物をクリアする
         currentAnimal = null;
     }
 
@@ -90,7 +132,7 @@ public class GetGameManager : MonoBehaviour
             Vector3 spawnPosition = new Vector3(
                 UnityEngine.Random.Range(spawnAreaMin.x, spawnAreaMax.x),
                 UnityEngine.Random.Range(spawnAreaMin.y, spawnAreaMax.y),
-                100f // Z座標を設定
+                0f
             );
 
             GameObject animalObject = Instantiate(selectedPrefab, spawnPosition, Quaternion.identity);
@@ -99,5 +141,25 @@ public class GetGameManager : MonoBehaviour
             animal.type = (AnimalType)UnityEngine.Random.Range(0, System.Enum.GetValues(typeof(AnimalType)).Length);
             animal.StartMoving();
         }
+    }
+
+    private void ShowSuccessText()
+    {
+        successText.gameObject.SetActive(true);
+    }
+
+    private void ShowFailureText()
+    {
+        failureText.gameObject.SetActive(true);
+    }
+
+    private void HideSuccessText()
+    {
+        successText.gameObject.SetActive(false);
+    }
+
+    private void HideFailureText()
+    {
+        failureText.gameObject.SetActive(false);
     }
 }

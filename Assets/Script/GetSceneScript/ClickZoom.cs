@@ -1,11 +1,13 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ClickZoom : MonoBehaviour
 {
     public Camera mainCamera;
     public float zoomSpeed = 2f;
     public float targetOrthographicSize = 2f;
-    private float originalOrthographicSize; // 元のサイズを保存する変数
+    public Image backgroundOverlay; // 動物とゲージの間に表示する画像
+    private float originalOrthographicSize;
     private Vector3 targetPosition;
     private bool isZooming = false;
     private GetGameManager gameManager;
@@ -15,7 +17,7 @@ public class ClickZoom : MonoBehaviour
         gameManager = FindObjectOfType<GetGameManager>();
         if (mainCamera != null)
         {
-            originalOrthographicSize = mainCamera.orthographicSize; // 初期サイズを保存
+            originalOrthographicSize = mainCamera.orthographicSize;
         }
     }
 
@@ -31,6 +33,10 @@ public class ClickZoom : MonoBehaviour
     {
         targetPosition = position;
         isZooming = true;
+
+        // 画像を表示し、Order in Layerを90に設定
+        backgroundOverlay.gameObject.SetActive(true);
+        backgroundOverlay.canvas.sortingOrder = 90;
     }
 
     private void ZoomToTarget()
@@ -50,9 +56,11 @@ public class ClickZoom : MonoBehaviour
     {
         if (mainCamera != null)
         {
-            // カメラのサイズと位置を即座に元に戻す
             mainCamera.orthographicSize = originalOrthographicSize;
             mainCamera.transform.position = new Vector3(0, 0, mainCamera.transform.position.z);
+
+            // 画像を非表示にし、Order in Layerをリセット
+            backgroundOverlay.gameObject.SetActive(false);
         }
     }
 }
