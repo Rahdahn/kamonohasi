@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;  // TextMeshPro用
+using TMPro;
 
 public class GetGameManager : MonoBehaviour
 {
@@ -32,13 +32,6 @@ public class GetGameManager : MonoBehaviour
     private bool timerIsRunning = true;     // タイマーが動作中かどうかのフラグ
 
     private List<GameObject> spawnedAnimals = new List<GameObject>(); // スポーンした動物を追跡するリスト
-
-    // 動物の種類ごとのカウント
-    private int d1Count = 0;
-    private int d2Count = 0;
-    private int d3Count = 0;
-    private int d4Count = 0;
-    private int d5Count = 0;
 
     private void Start()
     {
@@ -232,21 +225,22 @@ public class GetGameManager : MonoBehaviour
         switch (animal.type)
         {
             case AnimalType.D1:
-                d1Count++;
+                PlayerPrefs.SetInt("D1Count", PlayerPrefs.GetInt("D1Count", 0) + 1);
                 break;
             case AnimalType.D2:
-                d2Count++;
+                PlayerPrefs.SetInt("D2Count", PlayerPrefs.GetInt("D2Count", 0) + 1);
                 break;
             case AnimalType.D3:
-                d3Count++;
+                PlayerPrefs.SetInt("D3Count", PlayerPrefs.GetInt("D3Count", 0) + 1);
                 break;
             case AnimalType.D4:
-                d4Count++;
+                PlayerPrefs.SetInt("D4Count", PlayerPrefs.GetInt("D4Count", 0) + 1);
                 break;
             case AnimalType.D5:
-                d5Count++;
+                PlayerPrefs.SetInt("D5Count", PlayerPrefs.GetInt("D5Count", 0) + 1);
                 break;
         }
+        PlayerPrefs.Save();
         UpdateAnimalCountDisplay();
     }
 
@@ -265,11 +259,11 @@ public class GetGameManager : MonoBehaviour
     private void UpdateAnimalCountDisplay()
     {
         // 各種類のカウントをTextMeshProに反映
-        d1CountText.text = $"X {d1Count}";
-        d2CountText.text = $"X {d2Count}";
-        d3CountText.text = $"X {d3Count}";
-        d4CountText.text = $"X {d4Count}";
-        d5CountText.text = $"X {d5Count}";
+        d1CountText.text = $"X {PlayerPrefs.GetInt("D1Count", 0)}";
+        d2CountText.text = $"X {PlayerPrefs.GetInt("D2Count", 0)}";
+        d3CountText.text = $"X {PlayerPrefs.GetInt("D3Count", 0)}";
+        d4CountText.text = $"X {PlayerPrefs.GetInt("D4Count", 0)}";
+        d5CountText.text = $"X {PlayerPrefs.GetInt("D5Count", 0)}";
     }
 
     private void SpawnAnimals(int count)
@@ -291,5 +285,18 @@ public class GetGameManager : MonoBehaviour
             animal.StartMoving();
             spawnedAnimals.Add(animalObject); // スポーンした動物をリストに追加
         }
+    }
+
+    private void OnApplicationQuit()
+    {
+        // ゲーム終了時にPlayerPrefsをリセット
+        PlayerPrefs.DeleteKey("D1Count");
+        PlayerPrefs.DeleteKey("D2Count");
+        PlayerPrefs.DeleteKey("D3Count");
+        PlayerPrefs.DeleteKey("D4Count");
+        PlayerPrefs.DeleteKey("D5Count");
+        PlayerPrefs.DeleteKey("CapturedCount");
+        PlayerPrefs.DeleteKey("CapturedAnimal_"); // これで全ての"CapturedAnimal_"のキーを削除
+        PlayerPrefs.Save();
     }
 }
