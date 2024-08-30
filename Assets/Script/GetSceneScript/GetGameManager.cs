@@ -18,6 +18,13 @@ public class GetGameManager : MonoBehaviour
     public TextMeshProUGUI timerText;   // タイマー表示用のTextMeshPro
     public Canvas gameOverCanvas;       // 時間切れ時に表示するCanvas
 
+    // 動物の種類ごとのカウントを表示するTextMeshPro
+    public TextMeshProUGUI d1CountText;
+    public TextMeshProUGUI d2CountText;
+    public TextMeshProUGUI d3CountText;
+    public TextMeshProUGUI d4CountText;
+    public TextMeshProUGUI d5CountText;
+
     private List<Animal> capturedAnimals = new List<Animal>();
     private Animal currentAnimal;
     private int originalAnimalSortingOrder; // 動物の元のOrder in Layerを保持する変数
@@ -25,6 +32,13 @@ public class GetGameManager : MonoBehaviour
     private bool timerIsRunning = true;     // タイマーが動作中かどうかのフラグ
 
     private List<GameObject> spawnedAnimals = new List<GameObject>(); // スポーンした動物を追跡するリスト
+
+    // 動物の種類ごとのカウント
+    private int d1Count = 0;
+    private int d2Count = 0;
+    private int d3Count = 0;
+    private int d4Count = 0;
+    private int d5Count = 0;
 
     private void Start()
     {
@@ -45,6 +59,9 @@ public class GetGameManager : MonoBehaviour
         {
             gameOverCanvas.gameObject.SetActive(false); // 初期状態でCanvasを非表示
         }
+
+        // 捕獲した動物のカウントを初期化
+        UpdateAnimalCountDisplay();
     }
 
     private void Update()
@@ -210,6 +227,27 @@ public class GetGameManager : MonoBehaviour
         Destroy(animal.gameObject);
         spawnedAnimals.Remove(animal.gameObject); // リストから削除
         SaveCapturedAnimals();
+
+        // 捕獲した動物の種類ごとのカウントを更新
+        switch (animal.type)
+        {
+            case AnimalType.D1:
+                d1Count++;
+                break;
+            case AnimalType.D2:
+                d2Count++;
+                break;
+            case AnimalType.D3:
+                d3Count++;
+                break;
+            case AnimalType.D4:
+                d4Count++;
+                break;
+            case AnimalType.D5:
+                d5Count++;
+                break;
+        }
+        UpdateAnimalCountDisplay();
     }
 
     private void SaveCapturedAnimals()
@@ -222,6 +260,16 @@ public class GetGameManager : MonoBehaviour
         }
 
         PlayerPrefs.Save();
+    }
+
+    private void UpdateAnimalCountDisplay()
+    {
+        // 各種類のカウントをTextMeshProに反映
+        d1CountText.text = $"X {d1Count}";
+        d2CountText.text = $"X {d2Count}";
+        d3CountText.text = $"X {d3Count}";
+        d4CountText.text = $"X {d4Count}";
+        d5CountText.text = $"X {d5Count}";
     }
 
     private void SpawnAnimals(int count)
@@ -240,7 +288,6 @@ public class GetGameManager : MonoBehaviour
             GameObject animalObject = Instantiate(selectedPrefab, spawnPosition, Quaternion.identity);
             Animal animal = animalObject.GetComponent<Animal>();
 
-            animal.type = (AnimalType)UnityEngine.Random.Range(0, System.Enum.GetValues(typeof(AnimalType)).Length);
             animal.StartMoving();
             spawnedAnimals.Add(animalObject); // スポーンした動物をリストに追加
         }
