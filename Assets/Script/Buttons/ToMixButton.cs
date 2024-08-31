@@ -10,11 +10,11 @@ public class ToMixButton : MonoBehaviour
     {
         if (titleButton != null)
         {
-            titleButton.onClick.AddListener(OnStartButtonClick);
+            titleButton.onClick.AddListener(OnMixButtonClick);
         }
     }
 
-    void OnStartButtonClick()
+    void OnMixButtonClick()
     {
         FadeManager.Instance.LoadScene("MixScene(Test)", 1.0f);
     }

@@ -405,6 +405,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 8a76d9738077bdb4fa045b213f578284, type: 3}
+    - target: {fileID: 8966719016585074400, guid: 8390a71cf356a344592594315ff833fd, type: 3}
+      propertyPath: m_Name
+      value: CountD4
+      objectReference: {fileID: 0}
     - target: {fileID: 9132680049206767491, guid: 8390a71cf356a344592594315ff833fd, type: 3}
       propertyPath: m_Name
       value: GetAnimalFrame (3)
@@ -1170,6 +1174,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 3b7e52d6b2a09eb4b9d1246e532e3999, type: 3}
+    - target: {fileID: 8966719016585074400, guid: 8390a71cf356a344592594315ff833fd, type: 3}
+      propertyPath: m_Name
+      value: CountD3
+      objectReference: {fileID: 0}
     - target: {fileID: 9132680049206767491, guid: 8390a71cf356a344592594315ff833fd, type: 3}
       propertyPath: m_Name
       value: GetAnimalFrame (2)
@@ -1331,6 +1339,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 5585921ac322bf74e84cac947c180a89, type: 3}
+    - target: {fileID: 8966719016585074400, guid: 8390a71cf356a344592594315ff833fd, type: 3}
+      propertyPath: m_Name
+      value: CountD5
+      objectReference: {fileID: 0}
     - target: {fileID: 9132680049206767491, guid: 8390a71cf356a344592594315ff833fd, type: 3}
       propertyPath: m_Name
       value: GetAnimalFrame (4)
@@ -2878,6 +2890,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 81f61f4332a71124abacbb4885f272e0, type: 3}
+    - target: {fileID: 8966719016585074400, guid: 8390a71cf356a344592594315ff833fd, type: 3}
+      propertyPath: m_Name
+      value: CountD2
+      objectReference: {fileID: 0}
     - target: {fileID: 9132680049206767491, guid: 8390a71cf356a344592594315ff833fd, type: 3}
       propertyPath: m_Name
       value: GetAnimalFrame (1)
@@ -3312,6 +3328,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8966719016585074400, guid: 8390a71cf356a344592594315ff833fd, type: 3}
+      propertyPath: m_Name
+      value: CountD1
+      objectReference: {fileID: 0}
     - target: {fileID: 9132680049206767491, guid: 8390a71cf356a344592594315ff833fd, type: 3}
       propertyPath: m_Name
       value: GetAnimalFrame
@@ -3331,5 +3351,5 @@ SceneRoots:
   - {fileID: 1904737443}
   - {fileID: 2145566301}
   - {fileID: 321346450}
-  - {fileID: 1845624984}
   - {fileID: 1991529869}
+  - {fileID: 1845624984}

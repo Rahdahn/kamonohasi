@@ -2,23 +2,42 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
-public class DropArea : MonoBehaviour
+public class DropAreaManager : MonoBehaviour
 {
-    public List<Draggable> dropObjs;
+    public static DropAreaManager Instance { get; private set; }
 
+    public List<Draggable> dropObjs;
     public MonoBehaviour dropArea1;
     public MonoBehaviour dropArea2;
     public MonoBehaviour dropArea3;
     public MonoBehaviour dropArea4;
-
     public SliderMove1 sliderMove1;
 
     private Dictionary<MonoBehaviour, bool> dropAreaOccupied;
     private Dictionary<MonoBehaviour, string> dropAreaTags;
 
-    void Start()
+    public List<MonoBehaviour> DropAreas
+    {
+        get
+        {
+            return new List<MonoBehaviour> { dropArea1, dropArea2, dropArea3, dropArea4 };
+        }
+    }
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void Start()
     {
         dropAreaOccupied = new Dictionary<MonoBehaviour, bool>
         {
@@ -67,6 +86,7 @@ public class DropArea : MonoBehaviour
                     CheckAllDropAreasFilled();
                 }
             };
+
             dropObj.onDropFail = (Action resetAction) =>
             {
                 Debug.Log("ƒhƒ‰ƒbƒOŽ¸”sŽž");
@@ -90,7 +110,7 @@ public class DropArea : MonoBehaviour
             }
         }
         SaveDropOrder();
-        StartsliderMove1();
+        StartSliderMove1();
     }
 
     void SaveDropOrder()
@@ -140,7 +160,7 @@ public class DropArea : MonoBehaviour
         }
     }
 
-    void StartsliderMove1()
+    void StartSliderMove1()
     {
         sliderMove1.gameObject.SetActive(true);
     }
