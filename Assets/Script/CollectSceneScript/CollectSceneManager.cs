@@ -1,27 +1,54 @@
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro; // TextMeshProを使用
-using UnityEngine.UI;
 
 public class CollectSceneManager : MonoBehaviour
 {
-    public Transform imageContainer; // ここにImageプレハブを配置
-    public GameObject imagePrefab;   // 表示するImageプレハブ
+    public GameObject d1Prefab;
+    public GameObject d2Prefab;
+    public GameObject d3Prefab;
+    public GameObject d4Prefab;
+    public GameObject d5Prefab;
 
-    void Start()
+    public GameObject d1Object;
+    public GameObject d2Object;
+    public GameObject d3Object;
+    public GameObject d4Object;
+    public GameObject d5Object;
+
+    public List<MonoBehaviour> dropAreas;
+
+    private void Start()
     {
-        DisplayCollectedImages();
+        InitializeDraggables();
     }
 
-    void DisplayCollectedImages()
+    private void InitializeDraggables()
     {
-        List<string> collectedImages = CollectibleManager.Instance.GetCollectedImages();
+        // CollectibleManager.Instance.GetCollectedCountを使って獲得した動物の数を取得
+        CreateAndAttachAnimals(d1Prefab, d1Object, "D1");
+        CreateAndAttachAnimals(d2Prefab, d2Object, "D2");
+        CreateAndAttachAnimals(d3Prefab, d3Object, "D3");
+        CreateAndAttachAnimals(d4Prefab, d4Object, "D4");
+        CreateAndAttachAnimals(d5Prefab, d5Object, "D5");
+    }
 
-        foreach (string imageName in collectedImages)
+    private void CreateAndAttachAnimals(GameObject prefab, GameObject targetObject, string tag)
+    {
+        int count = CollectibleManager.Instance.GetCollectedCount(tag);
+
+        for (int i = 0; i < count; i++)
         {
-            GameObject imageObject = Instantiate(imagePrefab, imageContainer);
-            imageObject.GetComponentInChildren<TextMeshProUGUI>().text = imageName;
-            // imageObject.GetComponent<Image>().sprite = Resources.Load<Sprite>(imageName); // 画像を設定する場合
+            GameObject animal = Instantiate(prefab, targetObject.transform.position, targetObject.transform.rotation);
+            animal.transform.localScale = targetObject.transform.localScale;
+
+            Draggable draggable = animal.GetComponent<Draggable>();
+            if (draggable != null)
+            {
+                // スナップポジションはDropAreaManagerで管理されるため、ここでは設定しない
+                draggable.tag = tag;
+            }
         }
+
+        targetObject.SetActive(false);
     }
 }

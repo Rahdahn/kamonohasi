@@ -1,41 +1,70 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using System;
 
-public class Draggable : MonoBehaviour
+public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    public Dictionary<MonoBehaviour, Vector2> snapPositions;
+    private Vector2 originalPosition;
+    private CanvasGroup canvasGroup;
+
+    // snapToPosition を外部から設定可能にする
+    private Transform snapToPosition;
+
+    // ドラッグ終了時のコールバック
     public Action<MonoBehaviour, Action> onDropSuccess;
     public Action<Action> onDropFail;
 
-    private Vector2 originalPosition;
-
-    private void Start()
+    private void Awake()
     {
+        canvasGroup = GetComponent<CanvasGroup>();
+
+        // 初期位置を記録
         originalPosition = transform.position;
     }
 
-    public void OnDrop(MonoBehaviour dropArea)
+    // 外部から snapToPosition を設定するメソッド
+    public void SetSnapPosition(Transform snapTransform)
     {
-        if (snapPositions.ContainsKey(dropArea))
+        snapToPosition = snapTransform;
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        originalPosition = transform.position;
+        if (canvasGroup != null)
         {
-            Vector2 snapPosition = snapPositions[dropArea];
-            if (onDropSuccess != null)
-            {
-                onDropSuccess.Invoke(dropArea, ResetPosition);
-            }
-        }
-        else
-        {
-            if (onDropFail != null)
-            {
-                onDropFail.Invoke(ResetPosition);
-            }
+            canvasGroup.blocksRaycasts = false;
         }
     }
 
-    private void ResetPosition()
+    public void OnDrag(PointerEventData eventData)
     {
-        transform.position = originalPosition;
+        transform.position = eventData.position;
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        if (canvasGroup != null)
+        {
+            canvasGroup.blocksRaycasts = true;
+        }
+
+        if (snapToPosition != null)
+        {
+            transform.position = snapToPosition.position;
+
+            // DropAreaManager などに通知して処理を行う
+            // ここでは例として onDropSuccess を呼び出します
+            // 実際の実装に応じて適切に設定してください
+            // 例えば、DropArea を判定してそのコールバックを呼び出すなど
+            onDropSuccess?.Invoke(null, null);
+        }
+        else
+        {
+            // snapToPosition が設定されていない場合は元の位置に戻す
+            transform.position = originalPosition;
+
+            onDropFail?.Invoke(() => transform.position = originalPosition);
+        }
     }
 }

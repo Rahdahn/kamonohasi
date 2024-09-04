@@ -3,73 +3,54 @@ using UnityEngine;
 
 public class CollectibleManager : MonoBehaviour
 {
-    private static CollectibleManager instance;
+    public static CollectibleManager Instance { get; private set; }
 
-    public static CollectibleManager Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                GameObject singletonObject = new GameObject();
-                instance = singletonObject.AddComponent<CollectibleManager>();
-                DontDestroyOnLoad(singletonObject);
-            }
-            return instance;
-        }
-    }
-
-    private List<string> collectedImages;
+    private Dictionary<string, int> collectedAnimals;
 
     private void Awake()
     {
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-            LoadCollectedImages();
+            Instance = this;
         }
         else
         {
             Destroy(gameObject);
         }
+
+        collectedAnimals = new Dictionary<string, int>();
     }
 
-    public void AddCollectedImage(string imageName)
+    public void AddCollectedImage(string tag)
     {
-        if (!collectedImages.Contains(imageName))
+        if (collectedAnimals.ContainsKey(tag))
         {
-            collectedImages.Add(imageName);
-            SaveCollectedImages();
+            collectedAnimals[tag]++;
+        }
+        else
+        {
+            collectedAnimals[tag] = 1;
+        }
+
+        UpdateUI(tag);
+    }
+
+    public void ReduceCollectedCount(string tag)
+    {
+        if (collectedAnimals.ContainsKey(tag) && collectedAnimals[tag] > 0)
+        {
+            collectedAnimals[tag]--;
+            UpdateUI(tag);
         }
     }
 
-    public List<string> GetCollectedImages()
+    private void UpdateUI(string tag)
     {
-        return collectedImages;
+        // Šl“¾‚µ‚½“®•¨‚Ìí—Ş‚Æ”‚ğUI‚É”½‰f‚·‚éˆ—‚ğ‚±‚±‚É’Ç‰Á
     }
 
-    private void LoadCollectedImages()
+    public int GetCollectedCount(string tag)
     {
-        collectedImages = new List<string>();
-        int count = PlayerPrefs.GetInt("CollectedImageCount", 0);
-        for (int i = 0; i < count; i++)
-        {
-            string imageName = PlayerPrefs.GetString($"CollectedImage_{i}", "");
-            if (!string.IsNullOrEmpty(imageName))
-            {
-                collectedImages.Add(imageName);
-            }
-        }
-    }
-
-    private void SaveCollectedImages()
-    {
-        PlayerPrefs.SetInt("CollectedImageCount", collectedImages.Count);
-        for (int i = 0; i < collectedImages.Count; i++)
-        {
-            PlayerPrefs.SetString($"CollectedImage_{i}", collectedImages[i]);
-        }
-        PlayerPrefs.Save();
+        return collectedAnimals.ContainsKey(tag) ? collectedAnimals[tag] : 0;
     }
 }
