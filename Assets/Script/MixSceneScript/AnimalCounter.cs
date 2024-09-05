@@ -14,7 +14,7 @@ public class AnimalCounter : MonoBehaviour
         UpdateAnimalCountDisplay();
     }
 
-    private void UpdateAnimalCountDisplay()
+    public void UpdateAnimalCountDisplay()
     {
         // 各種類のカウントをTextMeshProに反映
         d1CountText.text = $"X {GameData.D1Count}";

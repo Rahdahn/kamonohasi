@@ -16,6 +16,6 @@ public class ReturnTitleButton : MonoBehaviour
 
     void OnTitleButtonClick()
     {
-        SceneManager.LoadScene("TitleScene");
+        FadeManager.Instance.LoadScene("TitleScene", 1.0f);
     }
 }

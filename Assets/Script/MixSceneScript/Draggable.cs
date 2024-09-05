@@ -1,70 +1,110 @@
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using System;
+using UnityEngine.EventSystems;
 
-public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class Draggable : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
-    private Vector2 originalPosition;
-    private CanvasGroup canvasGroup;
+    private Vector2 prePos;
+    private GameObject preParent;
 
-    // snapToPosition を外部から設定可能にする
-    private Transform snapToPosition;
-
-    // ドラッグ終了時のコールバック
-    public Action<MonoBehaviour, Action> onDropSuccess;
+    public Action beforeBeginDrag;
+    public Action<RectTransform, Action> onDropSuccess;
     public Action<Action> onDropFail;
+    public Dictionary<RectTransform, Vector2> snapPositions;
 
-    private void Awake()
+    private List<RectTransform> dropAreas = new List<RectTransform>();
+
+    public void SetDropAreas(List<RectTransform> areas)
     {
-        canvasGroup = GetComponent<CanvasGroup>();
-
-        // 初期位置を記録
-        originalPosition = transform.position;
-    }
-
-    // 外部から snapToPosition を設定するメソッド
-    public void SetSnapPosition(Transform snapTransform)
-    {
-        snapToPosition = snapTransform;
+        dropAreas = areas;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        originalPosition = transform.position;
-        if (canvasGroup != null)
-        {
-            canvasGroup.blocksRaycasts = false;
-        }
+        beforeBeginDrag?.Invoke();
+        prePos = transform.position;
+        preParent = transform.parent.gameObject;
+        transform.SetParent(transform.root.gameObject.transform, true);
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        transform.position = eventData.position;
+        Vector3 vec = Camera.main.WorldToScreenPoint(transform.position);
+        vec.x += eventData.delta.x;
+        vec.y += eventData.delta.y;
+        transform.position = Camera.main.ScreenToWorldPoint(vec);
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (canvasGroup != null)
+        bool isSuccess = false;
+        foreach (RectTransform area in dropAreas)
         {
-            canvasGroup.blocksRaycasts = true;
+            if (Contains(area, eventData))
+            {
+                isSuccess = true;
+                if (snapPositions != null && snapPositions.ContainsKey(area))
+                {
+                    transform.position = snapPositions[area];
+                }
+                onDropSuccess?.Invoke(area, resetPos());
+                break;
+            }
         }
 
-        if (snapToPosition != null)
+        if (!isSuccess)
         {
-            transform.position = snapToPosition.position;
-
-            // DropAreaManager などに通知して処理を行う
-            // ここでは例として onDropSuccess を呼び出します
-            // 実際の実装に応じて適切に設定してください
-            // 例えば、DropArea を判定してそのコールバックを呼び出すなど
-            onDropSuccess?.Invoke(null, null);
+            if (onDropFail == null)
+            {
+                resetPos().Invoke();
+            }
+            else
+            {
+                onDropFail.Invoke(resetPos());
+            }
         }
-        else
+    }
+
+    private Action resetPos()
+    {
+        return () =>
         {
-            // snapToPosition が設定されていない場合は元の位置に戻す
-            transform.position = originalPosition;
+            transform.position = prePos;
+            transform.SetParent(preParent.transform, true);
+        };
+    }
 
-            onDropFail?.Invoke(() => transform.position = originalPosition);
+    private bool Contains(RectTransform area, PointerEventData target)
+    {
+        var selfBounds = GetBounds(area);
+        Vector3 worldPos;
+        RectTransformUtility.ScreenPointToWorldPointInRectangle(
+            area,
+            target.position,
+            target.pressEventCamera,
+            out worldPos);
+        worldPos.z = 0f;
+        return selfBounds.Contains(worldPos);
+    }
+
+    private Bounds GetBounds(RectTransform target)
+    {
+        Vector3[] s_Corners = new Vector3[4];
+        var min = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
+        var max = new Vector3(float.MinValue, float.MinValue, float.MinValue);
+        target.GetWorldCorners(s_Corners);
+        for (var index2 = 0; index2 < 4; ++index2)
+        {
+            min = Vector3.Min(s_Corners[index2], min);
+            max = Vector3.Max(s_Corners[index2], max);
         }
+
+        max.z = 0f;
+        min.z = 0f;
+
+        Bounds bounds = new Bounds(min, Vector3.zero);
+        bounds.Encapsulate(max);
+        return bounds;
     }
 }

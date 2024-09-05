@@ -10,6 +10,7 @@ TagManager:
   - D3
   - D4
   - D5
+  - DropArea
   layers:
   - Default
   - TransparentFX

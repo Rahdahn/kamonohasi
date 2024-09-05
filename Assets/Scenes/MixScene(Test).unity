@@ -2788,12 +2788,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfa1d56650d0bd04dbb90184426e4605, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropObjs: []
-  dropArea1: {fileID: 1900868764}
-  dropArea2: {fileID: 1427885725}
-  dropArea3: {fileID: 253896098}
-  dropArea4: {fileID: 1265070031}
+  dropArea1: {fileID: 1900868761}
+  dropArea2: {fileID: 1427885722}
+  dropArea3: {fileID: 253896095}
+  dropArea4: {fileID: 1265070028}
   sliderMove1: {fileID: 2022007627}
+  animalCounter: {fileID: 1183971622}
 --- !u!1001 &1194783913
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4437,10 +4437,10 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1265070029}
-  - {fileID: 253896096}
   - {fileID: 1900868762}
   - {fileID: 1427885723}
+  - {fileID: 253896096}
+  - {fileID: 1265070029}
   m_Father: {fileID: 1183971621}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}

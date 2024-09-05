@@ -65,10 +65,5 @@ public class DisplayPercentage : MonoBehaviour
             default: images[24].gameObject.SetActive(true); displayedImages.Add("ImageDefault"); break;
         }
 
-        // 表示されたイメージをCollectibleManagerに保存
-        foreach (string imageName in displayedImages)
-        {
-            CollectibleManager.Instance.AddCollectedImage(imageName);
-        }
     }
 }

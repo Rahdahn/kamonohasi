@@ -1,21 +1,23 @@
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.UI;
+using System.Linq;
+using System;
 
 public class DropAreaManager : MonoBehaviour
 {
     public static DropAreaManager Instance { get; private set; }
 
-    public List<Draggable> dropObjs; // ドラッグ可能なオブジェクトのリスト
-    public MonoBehaviour dropArea1;
-    public MonoBehaviour dropArea2;
-    public MonoBehaviour dropArea3;
-    public MonoBehaviour dropArea4;
+    public GameObject dropArea1;
+    public GameObject dropArea2;
+    public GameObject dropArea3;
+    public GameObject dropArea4;
     public SliderMove1 sliderMove1;
 
-    private Dictionary<MonoBehaviour, bool> dropAreaOccupied; // 各ドロップエリアが占有されているかどうかを管理
-    private Dictionary<MonoBehaviour, string> dropAreaTags; // 各ドロップエリアに配置されたオブジェクトのタグを管理
+    private Dictionary<GameObject, bool> dropAreaOccupied;
+    private Dictionary<GameObject, string> dropAreaTags;
+
+    public AnimalCounter animalCounter;  // AnimalCounterの参照を持つ
 
     private void Awake()
     {
@@ -33,11 +35,11 @@ public class DropAreaManager : MonoBehaviour
     {
         if (dropArea1 == null || dropArea2 == null || dropArea3 == null || dropArea4 == null)
         {
-            UnityEngine.Debug.LogError("One or more drop areas are not assigned.");
+            Debug.LogError("One or more drop areas are not assigned.");
             return;
         }
 
-        dropAreaOccupied = new Dictionary<MonoBehaviour, bool>
+        dropAreaOccupied = new Dictionary<GameObject, bool>
         {
             { dropArea1, false },
             { dropArea2, false },
@@ -45,7 +47,7 @@ public class DropAreaManager : MonoBehaviour
             { dropArea4, false }
         };
 
-        dropAreaTags = new Dictionary<MonoBehaviour, string>
+        dropAreaTags = new Dictionary<GameObject, string>
         {
             { dropArea1, null },
             { dropArea2, null },
@@ -53,55 +55,65 @@ public class DropAreaManager : MonoBehaviour
             { dropArea4, null }
         };
 
-        foreach (var dropObj in dropObjs)
-        {
-            if (dropObj == null)
-            {
-                UnityEngine.Debug.LogError("Drop object is null.");
-                continue;
-            }
+        InitializeDraggables();
+    }
 
-            dropObj.snapPositions = new Dictionary<MonoBehaviour, Vector2>
+    private void InitializeDraggables()
+    {
+        var draggables = FindObjectsOfType<Draggable>();
+        var dropAreaList = new List<RectTransform>
+        {
+            dropArea1.GetComponent<RectTransform>(),
+            dropArea2.GetComponent<RectTransform>(),
+            dropArea3.GetComponent<RectTransform>(),
+            dropArea4.GetComponent<RectTransform>()
+        };
+
+        foreach (var draggable in draggables)
+        {
+            draggable.SetDropAreas(dropAreaList);
+
+            draggable.snapPositions = new Dictionary<RectTransform, Vector2>
             {
-                { dropArea1, GetSnapPosition(dropArea1) },
-                { dropArea2, GetSnapPosition(dropArea2) },
-                { dropArea3, GetSnapPosition(dropArea3) },
-                { dropArea4, GetSnapPosition(dropArea4) }
+                { dropArea1.GetComponent<RectTransform>(), GetSnapPosition(dropArea1) },
+                { dropArea2.GetComponent<RectTransform>(), GetSnapPosition(dropArea2) },
+                { dropArea3.GetComponent<RectTransform>(), GetSnapPosition(dropArea3) },
+                { dropArea4.GetComponent<RectTransform>(), GetSnapPosition(dropArea4) }
             };
 
-            dropObj.onDropSuccess = (area, resetAction) =>
+            draggable.onDropSuccess = (area, resetAction) =>
             {
-                UnityEngine.Debug.Log("ドラッグ成功時");
+                Debug.Log("ドラッグ成功時");
 
-                if (dropAreaOccupied[area])
+                if (dropAreaOccupied[area.gameObject])
                 {
-                    UnityEngine.Debug.Log("このエリアはすでに使用されています。");
+                    Debug.Log("このエリアはすでに使用されています。");
                     resetAction.Invoke();
                 }
                 else
                 {
-                    dropAreaOccupied[area] = true;
-                    dropObj.transform.position = GetSnapPosition(area);
-                    dropAreaTags[area] = dropObj.tag;
+                    dropAreaOccupied[area.gameObject] = true;
+                    draggable.transform.position = GetSnapPosition(area.gameObject);
+                    dropAreaTags[area.gameObject] = draggable.tag;
 
-                    // 獲得したImageを保存
-                    CollectibleManager.Instance.AddCollectedImage(dropObj.tag);
+                    // 動物のカウントを減らす
+                    ReduceAnimalCount(draggable.tag);
 
                     CheckAllDropAreasFilled();
                 }
             };
 
-            dropObj.onDropFail = (Action resetAction) =>
+            draggable.onDropFail = (Action resetAction) =>
             {
-                UnityEngine.Debug.Log("ドラッグ失敗時");
+                Debug.Log("ドラッグ失敗時");
                 resetAction.Invoke();
             };
         }
     }
 
-    Vector2 GetSnapPosition(MonoBehaviour dropArea)
+    Vector2 GetSnapPosition(GameObject dropArea)
     {
-        return dropArea.transform.position;
+        return dropArea.GetComponent<RectTransform>().position;
     }
 
     void CheckAllDropAreasFilled()
@@ -136,30 +148,10 @@ public class DropAreaManager : MonoBehaviour
     {
         Dictionary<string, float> dropOrderPercentages = new Dictionary<string, float>
         {
+            // データセットの例（実際のデータに合わせて変更）
             { "D1,D5,D4,D3", 41.1f },
             { "D1,D5,D3,D4", 92.2f },
-            { "D1,D3,D4,D5", 90.0f },
-            { "D1,D3,D5,D4", 75.4f },
-            { "D1,D4,D5,D3", 33.3f },
-            { "D1,D4,D3,D5", 8.2f },
-            { "D5,D1,D4,D3", 92.1f },
-            { "D5,D1,D3,D4", 47.1f },
-            { "D5,D4,D1,D3", 8.6f },
-            { "D5,D4,D3,D1", 70.6f },
-            { "D5,D3,D1,D4", 70.0f },
-            { "D5,D3,D4,D1", 34.2f },
-            { "D4,D5,D3,D1", 81.6f },
-            { "D4,D5,D1,D3", 58.8f },
-            { "D4,D1,D3,D5", 5.1f },
-            { "D4,D1,D5,D3", 33.8f },
-            { "D4,D3,D1,D5", 79.7f },
-            { "D4,D3,D5,D1", 53.4f },
-            { "D3,D1,D4,D5", 99.9f },
-            { "D3,D1,D5,D4", 95.2f },
-            { "D3,D4,D1,D5", 55.7f },
-            { "D3,D4,D5,D1", 2.3f },
-            { "D3,D5,D4,D1", 91.6f },
-            { "D3,D5,D1,D4", 80.3f }
+            // ...
         };
 
         if (dropOrderPercentages.TryGetValue(dropOrder, out float percentage))
@@ -167,11 +159,40 @@ public class DropAreaManager : MonoBehaviour
             return percentage;
         }
 
-        return 0.0f; // デフォルト値として0.0fを返す
+        return 0.0f;
     }
 
     void StartSliderMove1()
     {
         sliderMove1.gameObject.SetActive(true);
+    }
+
+    // 動物のカウントを減らす処理
+    void ReduceAnimalCount(string tag)
+    {
+        switch (tag)
+        {
+            case "D1":
+                if (GameData.D1Count > 0) GameData.D1Count--;
+                break;
+            case "D2":
+                if (GameData.D2Count > 0) GameData.D2Count--;
+                break;
+            case "D3":
+                if (GameData.D3Count > 0) GameData.D3Count--;
+                break;
+            case "D4":
+                if (GameData.D4Count > 0) GameData.D4Count--;
+                break;
+            case "D5":
+                if (GameData.D5Count > 0) GameData.D5Count--;
+                break;
+            default:
+                Debug.LogWarning("Unknown animal tag: " + tag);
+                break;
+        }
+
+        // カウントを減らした後にUIを更新
+        animalCounter.UpdateAnimalCountDisplay();
     }
 }

@@ -16,6 +16,6 @@ public class ToCollectButton : MonoBehaviour
 
     void OnTitleButtonClick()
     {
-        SceneManager.LoadScene("CollectScene");
+        FadeManager.Instance.LoadScene("CollectScene", 1.0f);
     }
 }
