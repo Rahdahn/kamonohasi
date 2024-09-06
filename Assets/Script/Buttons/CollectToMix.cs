@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class ReturnMixButton : MonoBehaviour
+public class CollectToMix : MonoBehaviour
 {
     public Button titleButton;
 
@@ -10,11 +10,11 @@ public class ReturnMixButton : MonoBehaviour
     {
         if (titleButton != null)
         {
-            titleButton.onClick.AddListener(OnMixButtonClick);
+            titleButton.onClick.AddListener(OnTitleButtonClick);
         }
     }
 
-    void OnMixButtonClick()
+    void OnTitleButtonClick()
     {
         FadeManager.Instance.LoadScene("MixScene(Test)", 1.0f);
     }
