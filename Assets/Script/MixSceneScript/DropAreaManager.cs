@@ -148,10 +148,30 @@ public class DropAreaManager : MonoBehaviour
     {
         Dictionary<string, float> dropOrderPercentages = new Dictionary<string, float>
         {
-            // データセットの例（実際のデータに合わせて変更）
             { "D1,D5,D4,D3", 41.1f },
             { "D1,D5,D3,D4", 92.2f },
-            // ...
+            { "D1,D3,D4,D5", 90.0f },
+            { "D1,D3,D5,D4", 75.4f },
+            { "D1,D4,D5,D3", 33.3f },
+            { "D1,D4,D3,D5", 8.2f },
+            { "D5,D1,D4,D3", 92.1f },
+            { "D5,D1,D3,D4", 47.1f },
+            { "D5,D4,D1,D3", 8.6f },
+            { "D5,D4,D3,D1", 70.6f },
+            { "D5,D3,D1,D4", 70.0f },
+            { "D5,D3,D4,D1", 34.2f },
+            { "D4,D5,D3,D1", 81.6f },
+            { "D4,D5,D1,D3", 58.8f },
+            { "D4,D1,D3,D5", 5.1f },
+            { "D4,D1,D5,D3", 33.8f },
+            { "D4,D3,D1,D5", 79.7f },
+            { "D4,D3,D5,D1", 53.4f },
+            { "D3,D1,D4,D5", 99.9f },
+            { "D3,D1,D5,D4", 95.2f },
+            { "D3,D4,D1,D5", 55.7f },
+            { "D3,D4,D5,D1", 2.3f },
+            { "D3,D5,D4,D1", 91.6f },
+            { "D3,D5,D1,D4", 80.3f }
         };
 
         if (dropOrderPercentages.TryGetValue(dropOrder, out float percentage))
