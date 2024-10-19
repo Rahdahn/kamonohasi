@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class ToCollectButton : MonoBehaviour
+public class ToLibraryButton : MonoBehaviour
 {
     public Button titleButton;
 
@@ -16,6 +16,6 @@ public class ToCollectButton : MonoBehaviour
 
     void OnTitleButtonClick()
     {
-        FadeManager.Instance.LoadScene("CollectScene", 1.0f);
+        FadeManager.Instance.LoadScene("LibraryScene", 1.0f);
     }
 }

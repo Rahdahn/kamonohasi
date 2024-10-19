@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class CollectToMix : MonoBehaviour
+public class LibraryToMix : MonoBehaviour
 {
     public Button titleButton;
 
