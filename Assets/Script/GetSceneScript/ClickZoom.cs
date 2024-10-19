@@ -6,7 +6,7 @@ public class ClickZoom : MonoBehaviour
     public Camera mainCamera;
     public float zoomSpeed = 2f;
     public float targetOrthographicSize = 2f;
-    public Image backgroundOverlay; // “®•¨‚ÆƒQ[ƒW‚ÌŠÔ‚É•\¦‚·‚é‰æ‘œ
+    public Image backgroundOverlay;
     private float originalOrthographicSize;
     private Vector3 targetPosition;
     private bool isZooming = false;

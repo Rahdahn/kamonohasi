@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;  // TextMeshPro用
+using TMPro;
 
 public class GetGameManager : MonoBehaviour
 {
@@ -30,6 +30,7 @@ public class GetGameManager : MonoBehaviour
     private int originalAnimalSortingOrder; // 動物の元のOrder in Layerを保持する変数
     private float timeRemaining = 60f;      // タイマーの初期値（60秒）
     private bool timerIsRunning = true;     // タイマーが動作中かどうかのフラグ
+    private bool isClickable = true;         // クリック可能かどうかのフラグ
 
     private List<GameObject> spawnedAnimals = new List<GameObject>(); // スポーンした動物を追跡するリスト
 
@@ -59,7 +60,7 @@ public class GetGameManager : MonoBehaviour
 
     private void Update()
     {
-        if (timerIsRunning)
+        if (timerIsRunning && isClickable) // クリック可能な場合のみ処理
         {
             if (timeRemaining > 0)
             {
@@ -72,38 +73,37 @@ public class GetGameManager : MonoBehaviour
                 timerIsRunning = false;
                 OnTimeExpired();
             }
-        }
-
-        if (Input.GetMouseButtonDown(0) && currentAnimal == null)
-        {
-            Vector2 clickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(clickPos, Vector2.zero);
-
-            if (hit.collider != null)
+            if (Input.GetMouseButtonDown(0) && currentAnimal == null)
             {
-                Animal animal = hit.collider.GetComponent<Animal>();
-                if (animal != null)
+                Vector2 clickPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                RaycastHit2D hit = Physics2D.Raycast(clickPos, Vector2.zero);
+
+                if (hit.collider != null)
                 {
-                    currentAnimal = animal;
-                    currentAnimal.StopMoving();  // 動物の動きを止める
-                    clickZoomScript.StartZoom(animal.transform.position);
+                    Animal animal = hit.collider.GetComponent<Animal>();
+                    if (animal != null)
+                    {
+                        currentAnimal = animal;
+                        currentAnimal.StopMoving();  // 動物の動きを止める
+                        clickZoomScript.StartZoom(animal.transform.position);
 
-                    // オーバーレイと動物のOrder in Layerを調整
-                    var spriteRenderer = backgroundOverlay.GetComponent<SpriteRenderer>();
-                    if (spriteRenderer != null)
-                    {
-                        spriteRenderer.sortingOrder = 90;
-                    }
-                    var animalRenderer = animal.GetComponent<SpriteRenderer>();
-                    if (animalRenderer != null)
-                    {
-                        originalAnimalSortingOrder = animalRenderer.sortingOrder; // 元のOrder in Layerを保存
-                        animalRenderer.sortingOrder = 100;
-                    }
+                        // オーバーレイと動物のOrder in Layerを調整
+                        var spriteRenderer = backgroundOverlay.GetComponent<SpriteRenderer>();
+                        if (spriteRenderer != null)
+                        {
+                            spriteRenderer.sortingOrder = 90;
+                        }
+                        var animalRenderer = animal.GetComponent<SpriteRenderer>();
+                        if (animalRenderer != null)
+                        {
+                            originalAnimalSortingOrder = animalRenderer.sortingOrder; // 元のOrder in Layerを保存
+                            animalRenderer.sortingOrder = 100;
+                        }
 
-                    if (backgroundOverlay != null)
-                    {
-                        backgroundOverlay.SetActive(true); // オーバーレイを表示
+                        if (backgroundOverlay != null)
+                        {
+                            backgroundOverlay.SetActive(true); // オーバーレイを表示
+                        }
                     }
                 }
             }
@@ -122,6 +122,12 @@ public class GetGameManager : MonoBehaviour
     {
         // タイマーが0になった時の処理
         UnityEngine.Debug.Log("Time's up!");
+
+        // ゲージミニゲームを停止（Disableにする）
+        if (gaugeMiniGameScript != null)
+        {
+            gaugeMiniGameScript.gameObject.SetActive(false); // スクリプトのGameObjectを無効化
+        }
 
         // タイマーを非表示
         if (timerText != null)
@@ -144,12 +150,12 @@ public class GetGameManager : MonoBehaviour
             }
         }
         spawnedAnimals.Clear();
-
-        // ゲーム終了時の追加処理があればここに記述
     }
+
 
     public void OnZoomComplete()
     {
+        isClickable = false; // ミニゲーム中はクリックを無効化
         gaugeMiniGameScript.StartMiniGame(OnMiniGameComplete);
     }
 
@@ -208,7 +214,7 @@ public class GetGameManager : MonoBehaviour
         clickZoomScript.ResetZoom();
         currentAnimal = null;
 
-        // 新しい動物をスポーンする前に5秒待つ
+        isClickable = true; // クリックを再度有効化
         yield return new WaitForSeconds(5f);
         SpawnAnimals(1); // 新しい動物を1体スポーン
     }

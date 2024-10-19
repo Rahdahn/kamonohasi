@@ -1785,7 +1785,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 1437253560}
-  zoomSpeed: 2
+  zoomSpeed: 4
   targetOrthographicSize: 2
   backgroundOverlay: {fileID: 1845466682}
 --- !u!114 &1461844686
@@ -1800,7 +1800,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd75ef8e980d0934783c62640ac984a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DebugMode: 1
+  DebugMode: 0
   fadeColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!114 &1461844687
 MonoBehaviour:
@@ -2168,7 +2168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gaugeImage: {fileID: 2060952337}
-  fillSpeed: 0.5
+  fillSpeed: 2.5
   maxFillAmount: 0.75
 --- !u!114 &1713213738
 MonoBehaviour:
