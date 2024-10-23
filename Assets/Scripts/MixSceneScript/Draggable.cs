@@ -7,7 +7,7 @@ public class Draggable : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
 {
     private Vector2 prePos;
     private GameObject preParent;
-    private bool isDropped = false; // 追加: ドロップされたかどうかを管理
+    private bool isDropped = false;
 
     public Action beforeBeginDrag;
     public Action<RectTransform, Action> onDropSuccess;
@@ -23,7 +23,7 @@ public class Draggable : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (isDropped) return; // ドロップ済みならドラッグを無効化
+        if (isDropped) return;
 
         beforeBeginDrag?.Invoke();
         prePos = transform.position;
@@ -33,7 +33,7 @@ public class Draggable : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (isDropped) return; // ドロップ済みならドラッグを無効化
+        if (isDropped) return;
 
         Vector3 vec = Camera.main.WorldToScreenPoint(transform.position);
         vec.x += eventData.delta.x;
@@ -43,7 +43,7 @@ public class Draggable : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (isDropped) return; // ドロップ済みならドラッグを無効化
+        if (isDropped) return;
 
         bool isSuccess = false;
         foreach (RectTransform area in dropAreas)
@@ -55,7 +55,7 @@ public class Draggable : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
                 {
                     transform.position = snapPositions[area];
                 }
-                isDropped = true; // 追加: ドロップ成功したのでフラグを設定
+                isDropped = true;
                 onDropSuccess?.Invoke(area, resetPos());
                 break;
             }

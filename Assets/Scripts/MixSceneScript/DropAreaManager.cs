@@ -35,7 +35,6 @@ public class DropAreaManager : MonoBehaviour
     {
         if (dropArea1 == null || dropArea2 == null || dropArea3 == null || dropArea4 == null)
         {
-            Debug.LogError("One or more drop areas are not assigned.");
             return;
         }
 
@@ -171,7 +170,13 @@ public class DropAreaManager : MonoBehaviour
             { "D3,D4,D1,D5", 55.7f },
             { "D3,D4,D5,D1", 2.3f },
             { "D3,D5,D4,D1", 91.6f },
-            { "D3,D5,D1,D4", 80.3f }
+            { "D3,D5,D1,D4", 80.3f },
+            { "D4,D1,D2,D5", 18.1f},
+            { "D2,D1,D5,D4", 27.1f},
+            { "D1,D2,D5,D4", 8.0f},
+            { "D1,D5,D2,D4", 67.4f},
+            { "D5,D4,D1,D2", 64.0f},
+            { "D5,D2,D4,D1", 91.2f}
         };
 
         if (dropOrderPercentages.TryGetValue(dropOrder, out float percentage))

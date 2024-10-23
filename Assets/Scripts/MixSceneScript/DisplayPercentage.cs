@@ -62,7 +62,13 @@ public class DisplayPercentage : MonoBehaviour
             case "D3,D4,D5,D1": images[21].gameObject.SetActive(true); displayedImages.Add("Image21"); break;
             case "D3,D5,D4,D1": images[22].gameObject.SetActive(true); displayedImages.Add("Image22"); break;
             case "D3,D5,D1,D4": images[23].gameObject.SetActive(true); displayedImages.Add("Image23"); break;
-            default: images[24].gameObject.SetActive(true); displayedImages.Add("ImageDefault"); break;
+            case "D4,D1,D2,D5": images[24].gameObject.SetActive(true); displayedImages.Add("Image24"); break;
+            case "D2,D1,D5,D4": images[25].gameObject.SetActive(true); displayedImages.Add("Image25"); break;
+            case "D1,D2,D5,D4": images[26].gameObject.SetActive(true); displayedImages.Add("Image26"); break;
+            case "D1,D5,D2,D4": images[27].gameObject.SetActive(true); displayedImages.Add("Image27"); break;
+            case "D5,D4,D1,D2": images[28].gameObject.SetActive(true); displayedImages.Add("Image28"); break;
+            case "D5,D2,D4,D1": images[29].gameObject.SetActive(true); displayedImages.Add("Image29"); break;
+            default: images[30].gameObject.SetActive(true); displayedImages.Add("ImageDefault"); break;
         }
 
     }
