@@ -18,7 +18,7 @@ public class DisplayPercentage : MonoBehaviour
         string order = PlayerPrefs.GetString("DropOrder", "");
 
         // パーセンテージをテキストに変換し、TextMeshProコンポーネントに設定
-        percentageText.text = $"{percentage}％\nカモノハシ！";
+        percentageText.text = $"{percentage} ％\nカモノハシ！";
 
         // イメージを表示
         ShowImageByOrder(order);
