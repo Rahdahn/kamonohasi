@@ -61,24 +61,24 @@ public class DropAreaManager : MonoBehaviour
     {
         var draggables = FindObjectsOfType<Draggable>();
         var dropAreaList = new List<RectTransform>
-        {
-            dropArea1.GetComponent<RectTransform>(),
-            dropArea2.GetComponent<RectTransform>(),
-            dropArea3.GetComponent<RectTransform>(),
-            dropArea4.GetComponent<RectTransform>()
-        };
+    {
+        dropArea1.GetComponent<RectTransform>(),
+        dropArea2.GetComponent<RectTransform>(),
+        dropArea3.GetComponent<RectTransform>(),
+        dropArea4.GetComponent<RectTransform>()
+    };
 
         foreach (var draggable in draggables)
         {
             draggable.SetDropAreas(dropAreaList);
 
             draggable.snapPositions = new Dictionary<RectTransform, Vector2>
-            {
-                { dropArea1.GetComponent<RectTransform>(), GetSnapPosition(dropArea1) },
-                { dropArea2.GetComponent<RectTransform>(), GetSnapPosition(dropArea2) },
-                { dropArea3.GetComponent<RectTransform>(), GetSnapPosition(dropArea3) },
-                { dropArea4.GetComponent<RectTransform>(), GetSnapPosition(dropArea4) }
-            };
+        {
+            { dropArea1.GetComponent<RectTransform>(), GetSnapPosition(dropArea1) },
+            { dropArea2.GetComponent<RectTransform>(), GetSnapPosition(dropArea2) },
+            { dropArea3.GetComponent<RectTransform>(), GetSnapPosition(dropArea3) },
+            { dropArea4.GetComponent<RectTransform>(), GetSnapPosition(dropArea4) }
+        };
 
             draggable.onDropSuccess = (area, resetAction) =>
             {
@@ -91,13 +91,22 @@ public class DropAreaManager : MonoBehaviour
                 }
                 else
                 {
+                    // ドロップエリアが使用済みであることを設定
                     dropAreaOccupied[area.gameObject] = true;
+
+                    // ドラッグされたオブジェクトをドロップエリアにスナップ
                     draggable.transform.position = GetSnapPosition(area.gameObject);
+
+                    // ドロップされたエリアのタグを保存
                     dropAreaTags[area.gameObject] = draggable.tag;
+
+                    // ドロップされたエリアを非表示にする
+                    area.gameObject.SetActive(false);
 
                     // 動物のカウントを減らす
                     ReduceAnimalCount(draggable.tag);
 
+                    // すべてのドロップエリアが埋まったかチェック
                     CheckAllDropAreasFilled();
                 }
             };
@@ -109,6 +118,7 @@ public class DropAreaManager : MonoBehaviour
             };
         }
     }
+
 
     Vector2 GetSnapPosition(GameObject dropArea)
     {
