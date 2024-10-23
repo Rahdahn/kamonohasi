@@ -10,10 +10,10 @@ public static class GameData
     // 捕獲数をリセットするメソッド
     public static void ResetCounts()
     {
-        D1Count = 0;
-        D2Count = 0;
-        D3Count = 0;
-        D4Count = 0;
-        D5Count = 0;
+        D1Count = 2;
+        D2Count = 2;
+        D3Count = 2;
+        D4Count = 2;
+        D5Count = 2;
     }
 }

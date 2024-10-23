@@ -16,6 +16,10 @@ public class StartButton : MonoBehaviour
 
     void OnStartButtonClick()
     {
+        // ゲームデータのリセット
+        GameData.ResetCounts();
+
+        // シーンを遷移
         FadeManager.Instance.LoadScene("GetScene", 1.0f);
     }
 }
