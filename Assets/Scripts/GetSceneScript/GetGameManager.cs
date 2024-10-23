@@ -28,7 +28,7 @@ public class GetGameManager : MonoBehaviour
     private List<Animal> capturedAnimals = new List<Animal>();
     private Animal currentAnimal;
     private int originalAnimalSortingOrder; // 動物の元のOrder in Layerを保持する変数
-    private float timeRemaining = 60f;      // タイマーの初期値（60秒）
+    private float timeRemaining = 60f;      // タイマーの初期値
     private bool timerIsRunning = true;     // タイマーが動作中かどうかのフラグ
     private bool isClickable = true;         // クリック可能かどうかのフラグ
 
@@ -112,22 +112,19 @@ public class GetGameManager : MonoBehaviour
 
     private void UpdateTimerDisplay(float time)
     {
-        // 残り時間を分と秒に分けて表示
         float minutes = Mathf.FloorToInt(time / 60);
         float seconds = Mathf.FloorToInt(time % 60);
         timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
+
 
     private void OnTimeExpired()
     {
         // タイマーが0になった時の処理
         UnityEngine.Debug.Log("Time's up!");
 
-        // ゲージミニゲームを停止（Disableにする）
-        if (gaugeMiniGameScript != null)
-        {
-            gaugeMiniGameScript.gameObject.SetActive(false); // スクリプトのGameObjectを無効化
-        }
+        // 自身のスクリプトを停止する
+        this.enabled = false;
 
         // タイマーを非表示
         if (timerText != null)
@@ -150,7 +147,9 @@ public class GetGameManager : MonoBehaviour
             }
         }
         spawnedAnimals.Clear();
+
     }
+
 
 
     public void OnZoomComplete()
