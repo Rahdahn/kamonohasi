@@ -11,13 +11,6 @@ public class GaugeController : MonoBehaviour
     private float currentFillAmount = 0f;
     private bool isFilling = true;
 
-    void Start()
-    {
-        if (gaugeImage == null)
-        {
-            UnityEngine.Debug.LogError("Gauge Image is not assigned!");
-        }
-    }
 
     void Update()
     {

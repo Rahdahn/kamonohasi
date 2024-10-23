@@ -652,8 +652,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: cb3f69ae4af55a24d8026d68da71a35d, type: 2}
-  m_sharedMaterial: {fileID: -3043038531459513715, guid: cb3f69ae4af55a24d8026d68da71a35d, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6ad65ad287389a34aa36b12c2998442a, type: 2}
+  m_sharedMaterial: {fileID: -1593120904219715051, guid: 6ad65ad287389a34aa36b12c2998442a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -927,10 +927,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u305F\u3044\u3068\u308B\u3078"
+  m_text: "\u30BF\u30A4\u30C8\u30EB\u3078"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: cb3f69ae4af55a24d8026d68da71a35d, type: 2}
-  m_sharedMaterial: {fileID: -3043038531459513715, guid: cb3f69ae4af55a24d8026d68da71a35d, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6ad65ad287389a34aa36b12c2998442a, type: 2}
+  m_sharedMaterial: {fileID: -1593120904219715051, guid: 6ad65ad287389a34aa36b12c2998442a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -954,17 +954,17 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 70
+  m_fontSizeBase: 70
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: 0
+  m_characterSpacing: -30
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -1039,66 +1039,99 @@ MonoBehaviour:
   _listlibraryObjects:
   - Name: "\u30A2\u30AB\u30BF\u30D3"
     Sprite: {fileID: 21300000, guid: 0df89488d68b45f4183cea435bfa629e, type: 3}
-    Memo: "\u30AB\u30E2\u30CE\u30CF\u30B7\u306B\u8FD1\u3044\u4F55\u304B\u3092\u611F\u3058\u308B..."
+    Memo: "\u30AB\u30E2\u30CE\u30CF\u30B7\u306B\u8FD1\u3044\u4F55\u304B\u3092\u611F\u3058\u308B.
+      . ."
   - Name: "\u30A2\u30AB\u30D3\u30BF"
     Sprite: {fileID: 21300000, guid: 0ff366114d5787b40b153ffef5154e38, type: 3}
-    Memo: "\u30AB\u30E2\u30CE\u30CF\u30B7\u306B\u8FD1\u3044\u304C\u9060\u3044\u611F\u3058\u3082\u3059\u308B..."
+    Memo: "\u30AB\u30E2\u30CE\u30CF\u30B7\u306B\u8FD1\u3044\u304C\u9060\u3044\u611F\u3058\u3082\u3059\u308B.
+      . ."
   - Name: "\u30A2\u30BF\u30AB\u30D3"
     Sprite: {fileID: 21300000, guid: baf6bf05d4f26774981e4e91f79eaad5, type: 3}
-    Memo: "\u30AB\u30E2\u30CE\u30CF\u30B7\u306B\u8FD1\u3044\u4F55\u304B\u3092\u611F\u3058\u308B..."
+    Memo: "\u30AB\u30E2\u30CE\u30CF\u30B7\u306B\u8FD1\u3044\u4F55\u304B\u3092\u611F\u3058\u308B.
+      . ."
   - Name: "\u30A2\u30BF\u30D3\u30AB"
     Sprite: {fileID: 21300000, guid: 35fe55ee0f27fe44c9857f9f14e36a0c, type: 3}
     Memo: "\u30AB\u30E2\u30CE\u30CF\u30B7\u306B\u8FD1\u3065\u3044\u3066\u3044\u308B\u304C\u307E\u3060\u307E\u3060\u9060\u3044"
   - Name: "\u30AB\u30A2\u30BF\u30D3"
     Sprite: {fileID: 21300000, guid: 6991e8c0385cb64448f8ccc77a35d068, type: 3}
-    Memo: "\u30AB\u30E2\u30CE\u30CF\u30B7\u306B\u8FD1\u3044\u304C\u9060\u3044\u611F\u3058\u3082\u3059\u308B..."
+    Memo: "\u30AB\u30E2\u30CE\u30CF\u30B7\u306B\u8FD1\u3044\u304C\u9060\u3044\u611F\u3058\u3082\u3059\u308B.
+      . ."
   - Name: "\u30AB\u30A2\u30D3\u30BF"
     Sprite: {fileID: 21300000, guid: fc719de22d06c8b48b6df5bc0f5b7c0d, type: 3}
-    Memo: "\u30AB\u30E2\u30CE\u30CF\u30B7\u3067\u306F\u306A\u3044\u4F55\u304B...\u3053\u308C\u306F\u3072\u3069\u3044"
+    Memo: "\u30AB\u30E2\u30CE\u30CF\u30B7\u3067\u306F\u306A\u3044\u4F55\u304B. .
+      .\u3053\u308C\u306F\u3072\u3069\u3044"
   - Name: "\u30AB\u30BF\u30D3\u30A2"
     Sprite: {fileID: 21300000, guid: 97641c87d0db70944b733c32ab9a1e1b, type: 3}
-    Memo: "\u30AB\u30E2\u30CE\u30CF\u30B7\u306B\u3059\u3054\u304F\u8FD1\u3044\u4F55\u304B\u3092\u611F\u3058\u308B\u5B9F\u8CEA\u3053\u308C\u306F...\u30AB\u30E2\u30CE\u30CF\u30B7\uFF1F"
+    Memo: "\u30AB\u30E2\u30CE\u30CF\u30B7\u306B\u3059\u3054\u304F\u8FD1\u3044\u4F55\u304B\u3092\u611F\u3058\u308B\u5B9F\u8CEA\u3053\u308C\u306F.
+      . .\u30AB\u30E2\u30CE\u30CF\u30B7\uFF1F"
   - Name: "\u30AB\u30D3\u30BF\u30A2"
     Sprite: {fileID: 21300000, guid: d83783aa92e2c944daccfbdb7e51a3b6, type: 3}
-    Memo: "\u30AB\u30E2\u30CE\u30CF\u30B7\u306B\u8FD1\u3044\u4F55\u304B\u3092\u611F\u3058\u308B..."
+    Memo: "\u30AB\u30E2\u30CE\u30CF\u30B7\u306B\u8FD1\u3044\u4F55\u304B\u3092\u611F\u3058\u308B.
+      . ."
   - Name: "\u30BF\u30A2\u30AB\u30D3"
     Sprite: {fileID: 21300000, guid: 854693bdc8f966d48bc6cae55fc7af86, type: 3}
-    Memo: "\u30AB\u30E2\u30CE\u30CF\u30B7\u3067\u306F\u306A\u3044\u4F55\u304B...\u3053\u308C\u306F\u3072\u3069\u3044"
+    Memo: "\u30AB\u30E2\u30CE\u30CF\u30B7\u3067\u306F\u306A\u3044\u4F55\u304B. .
+      .\u3053\u308C\u306F\u3072\u3069\u3044"
   - Name: "\u30BF\u30A2\u30D3\u30AB"
     Sprite: {fileID: 21300000, guid: bf31f318c00c9c34a83098e20d2111b7, type: 3}
     Memo: "\u30AB\u30E2\u30CE\u30CF\u30B7\u306B\u8FD1\u3065\u3044\u3066\u3044\u308B\u304C\u307E\u3060\u307E\u3060\u9060\u3044"
   - Name: "\u30BF\u30AB\u30A2\u30D3"
     Sprite: {fileID: 21300000, guid: 321a66c3b6db8844892a3be13f165994, type: 3}
-    Memo: "\u30AB\u30E2\u30CE\u30CF\u30B7\u306B\u3059\u3054\u304F\u8FD1\u3044\u4F55\u304B\u3092\u611F\u3058\u308B\u5B9F\u8CEA\u3053\u308C\u306F...\u30AB\u30E2\u30CE\u30CF\u30B7\uFF1F"
+    Memo: "\u30AB\u30E2\u30CE\u30CF\u30B7\u306B\u3059\u3054\u304F\u8FD1\u3044\u4F55\u304B\u3092\u611F\u3058\u308B\u5B9F\u8CEA\u3053\u308C\u306F.
+      . .\u30AB\u30E2\u30CE\u30CF\u30B7\uFF1F"
   - Name: "\u30BF\u30AB\u30D3\u30A2"
     Sprite: {fileID: 21300000, guid: a4ac58440f64ddc49a2a8a0b5f90bb4f, type: 3}
-    Memo: "\u30AB\u30E2\u30CE\u30CF\u30B7\u306B\u8FD1\u3044\u4F55\u304B\u3092\u611F\u3058\u308B..."
+    Memo: "\u30AB\u30E2\u30CE\u30CF\u30B7\u306B\u8FD1\u3044\u4F55\u304B\u3092\u611F\u3058\u308B.
+      . ."
   - Name: "\u30BF\u30D3\u30A2\u30AB"
     Sprite: {fileID: 21300000, guid: 71814e5204a9c4c4f91eca82bd0dbb11, type: 3}
     Memo: "\u30AB\u30E2\u30CE\u30CF\u30B7\u306B\u8FD1\u3065\u3044\u3066\u3044\u308B\u304C\u307E\u3060\u307E\u3060\u9060\u3044"
   - Name: "\u30BF\u30D3\u30AB\u30A2"
     Sprite: {fileID: 21300000, guid: e1fdba5c151616a4d9131e7d5b8b66a3, type: 3}
-    Memo: "\u30AB\u30E2\u30CE\u30CF\u30B7\u306B\u3059\u3054\u304F\u8FD1\u3044\u4F55\u304B\u3092\u611F\u3058\u308B\u5B9F\u8CEA\u3053\u308C\u306F...\u30AB\u30E2\u30CE\u30CF\u30B7\uFF1F"
+    Memo: "\u30AB\u30E2\u30CE\u30CF\u30B7\u306B\u3059\u3054\u304F\u8FD1\u3044\u4F55\u304B\u3092\u611F\u3058\u308B\u5B9F\u8CEA\u3053\u308C\u306F.
+      . .\u30AB\u30E2\u30CE\u30CF\u30B7\uFF1F"
   - Name: "\u30D3\u30A2\u30AB\u30BF"
     Sprite: {fileID: 21300000, guid: 7951c23c03c4edf4fae49bd0e24db230, type: 3}
-    Memo: "\u30AB\u30E2\u30CE\u30CF\u30B7\u306B\u8FD1\u3044\u4F55\u304B\u3092\u611F\u3058\u308B..."
+    Memo: "\u30AB\u30E2\u30CE\u30CF\u30B7\u306B\u8FD1\u3044\u4F55\u304B\u3092\u611F\u3058\u308B.
+      . ."
   - Name: "\u30D3\u30A2\u30BF\u30AB"
     Sprite: {fileID: 21300000, guid: 75a7cb55f58b5f5408d8da86bf9877d8, type: 3}
-    Memo: "\u30AB\u30E2\u30CE\u30CF\u30B7\u3067\u306F\u306A\u3044\u4F55\u304B...\u3053\u308C\u306F\u3072\u3069\u3044"
+    Memo: "\u30AB\u30E2\u30CE\u30CF\u30B7\u3067\u306F\u306A\u3044\u4F55\u304B. .
+      .\u3053\u308C\u306F\u3072\u3069\u3044"
   - Name: "\u30D3\u30AB\u30A2\u30BF"
     Sprite: {fileID: 21300000, guid: a4a8a4e99e9ca9140a06b4aded35d9ef, type: 3}
     Memo: "\u30AB\u30E2\u30CE\u30CF\u30B7\u306B\u8FD1\u3065\u3044\u3066\u3044\u308B\u304C\u307E\u3060\u307E\u3060\u9060\u3044"
   - Name: "\u30D3\u30AB\u30BF\u30A2"
     Sprite: {fileID: 21300000, guid: e468b288a6c4c634380486aa7caed990, type: 3}
-    Memo: "\u30AB\u30E2\u30CE\u30CF\u30B7\u306B\u8FD1\u3044\u304C\u9060\u3044\u611F\u3058\u3082\u3059\u308B..."
+    Memo: "\u30AB\u30E2\u30CE\u30CF\u30B7\u306B\u8FD1\u3044\u304C\u9060\u3044\u611F\u3058\u3082\u3059\u308B.
+      . ."
   - Name: "\u30D3\u30BF\u30A2\u30AB"
     Sprite: {fileID: 21300000, guid: d04bc0a879cd695449073e7e885465e6, type: 3}
-    Memo: "\u30AB\u30E2\u30CE\u30CF\u30B7\u306B\u3059\u3054\u304F\u8FD1\u3044\u4F55\u304B\u3092\u611F\u3058\u308B\u5B9F\u8CEA\u3053\u308C\u306F...\u30AB\u30E2\u30CE\u30CF\u30B7\uFF1F"
+    Memo: "\u30AB\u30E2\u30CE\u30CF\u30B7\u306B\u3059\u3054\u304F\u8FD1\u3044\u4F55\u304B\u3092\u611F\u3058\u308B\u5B9F\u8CEA\u3053\u308C\u306F.
+      . .\u30AB\u30E2\u30CE\u30CF\u30B7\uFF1F"
   - Name: "\u30D3\u30BF\u30AB\u30A2"
     Sprite: {fileID: 21300000, guid: adc4a8bbda1348847bdf3e27b5c6cdcd, type: 3}
     Memo: "\u30AB\u30E2\u30CE\u30CF\u30B7\u306B\u8FD1\u3065\u3044\u3066\u3044\u308B\u304C\u307E\u3060\u307E\u3060\u9060\u3044"
   - Name: "\u3060\u3063\u305F\u3082\u306E"
     Sprite: {fileID: 21300000, guid: 1f7a9c2e675451847982d143fe42ccfe, type: 3}
+    Memo: "\u30AB\u30E2\u30CE\u30CF\u30B7\u306B\u5165\u308C\u3066\u306F\u306A\u3089\u306A\u3044\u52D5\u7269\u304C\u3044\u308B\u306E\u304B\uFF1F\uFF1F\u898B\u305B\u308C\u308B\u3082\u306E\u3067\u306F\u306A\u3044"
+  - Name: "\u30A2\u30BF\u30A6\u30D3"
+    Sprite: {fileID: 21300000, guid: 34e35a8430b011646ad1886269c70f87, type: 3}
+    Memo: "\u30AB\u30E2\u30CE\u30CF\u30B7\u306B\u5165\u308C\u3066\u306F\u306A\u3089\u306A\u3044\u52D5\u7269\u304C\u3044\u308B\u306E\u304B\uFF1F\uFF1F\u898B\u305B\u308C\u308B\u3082\u306E\u3067\u306F\u306A\u3044"
+  - Name: "\u30A6\u30BF\u30D3\u30A2"
+    Sprite: {fileID: 21300000, guid: 81b421b2e3e90dc4497902cfcdadd2d9, type: 3}
+    Memo: "\u30AB\u30E2\u30CE\u30CF\u30B7\u306B\u5165\u308C\u3066\u306F\u306A\u3089\u306A\u3044\u52D5\u7269\u304C\u3044\u308B\u306E\u304B\uFF1F\uFF1F\u898B\u305B\u308C\u308B\u3082\u306E\u3067\u306F\u306A\u3044"
+  - Name: "\u30BF\u30A6\u30D3\u30A2"
+    Sprite: {fileID: 21300000, guid: 74a1b7228f158404393da13b31a6cd1c, type: 3}
+    Memo: "\u30AB\u30E2\u30CE\u30CF\u30B7\u306B\u5165\u308C\u3066\u306F\u306A\u3089\u306A\u3044\u52D5\u7269\u304C\u3044\u308B\u306E\u304B\uFF1F\uFF1F\u898B\u305B\u308C\u308B\u3082\u306E\u3067\u306F\u306A\u3044"
+  - Name: "\u30BF\u30D3\u30A6\u30A2"
+    Sprite: {fileID: 21300000, guid: 72e1bf23878c24047be7e4460080efe0, type: 3}
+    Memo: "\u30AB\u30E2\u30CE\u30CF\u30B7\u306B\u5165\u308C\u3066\u306F\u306A\u3089\u306A\u3044\u52D5\u7269\u304C\u3044\u308B\u306E\u304B\uFF1F\uFF1F\u898B\u305B\u308C\u308B\u3082\u306E\u3067\u306F\u306A\u3044"
+  - Name: "\u30D3\u30A2\u30BF\u30A6"
+    Sprite: {fileID: 21300000, guid: 370ae527762dec44ca76c357485213e8, type: 3}
+    Memo: "\u30AB\u30E2\u30CE\u30CF\u30B7\u306B\u5165\u308C\u3066\u306F\u306A\u3089\u306A\u3044\u52D5\u7269\u304C\u3044\u308B\u306E\u304B\uFF1F\uFF1F\u898B\u305B\u308C\u308B\u3082\u306E\u3067\u306F\u306A\u3044"
+  - Name: "\u30D3\u30A6\u30A2\u30BF"
+    Sprite: {fileID: 21300000, guid: a8a78536f2492ad44b6b74cdd66e150d, type: 3}
     Memo: "\u30AB\u30E2\u30CE\u30CF\u30B7\u306B\u5165\u308C\u3066\u306F\u306A\u3089\u306A\u3044\u52D5\u7269\u304C\u3044\u308B\u306E\u304B\uFF1F\uFF1F\u898B\u305B\u308C\u308B\u3082\u306E\u3067\u306F\u306A\u3044"
 --- !u!4 &1010786595
 Transform:
@@ -1172,10 +1205,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u3054\u3046\u305B\u3044\u3078"
+  m_text: "\u5408\u6210\u3078"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: cb3f69ae4af55a24d8026d68da71a35d, type: 2}
-  m_sharedMaterial: {fileID: -3043038531459513715, guid: cb3f69ae4af55a24d8026d68da71a35d, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6ad65ad287389a34aa36b12c2998442a, type: 2}
+  m_sharedMaterial: {fileID: -1593120904219715051, guid: 6ad65ad287389a34aa36b12c2998442a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1199,17 +1232,17 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 70
+  m_fontSizeBase: 70
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: 0
+  m_characterSpacing: -30
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -1308,15 +1341,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: cb3f69ae4af55a24d8026d68da71a35d, type: 2}
-  m_sharedMaterial: {fileID: -3043038531459513715, guid: cb3f69ae4af55a24d8026d68da71a35d, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6ad65ad287389a34aa36b12c2998442a, type: 2}
+  m_sharedMaterial: {fileID: -1593120904219715051, guid: 6ad65ad287389a34aa36b12c2998442a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 0.6006153, b: 0.15408784, a: 1}
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1333,8 +1366,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
-  m_fontSizeBase: 40
+  m_fontSize: 60
+  m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1343,7 +1376,7 @@ MonoBehaviour:
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
-  m_characterSpacing: 0
+  m_characterSpacing: -10
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0

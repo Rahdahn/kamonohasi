@@ -180,10 +180,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\u56F3\u9451\u3078"
+  m_text: "\u305A\u304B\u3093\u3078"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: cb3f69ae4af55a24d8026d68da71a35d, type: 2}
-  m_sharedMaterial: {fileID: -3043038531459513715, guid: cb3f69ae4af55a24d8026d68da71a35d, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6ad65ad287389a34aa36b12c2998442a, type: 2}
+  m_sharedMaterial: {fileID: -1593120904219715051, guid: 6ad65ad287389a34aa36b12c2998442a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -207,8 +207,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSize: 70
+  m_fontSizeBase: 70
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -217,7 +217,7 @@ MonoBehaviour:
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: 0
+  m_characterSpacing: -30
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -2059,8 +2059,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u5408\u6210\u3059\u308B\u52D5\u7269\u304C\u3044\u306A\u3044\u3088\uFF1B\uFF1B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: cb3f69ae4af55a24d8026d68da71a35d, type: 2}
-  m_sharedMaterial: {fileID: -3043038531459513715, guid: cb3f69ae4af55a24d8026d68da71a35d, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6ad65ad287389a34aa36b12c2998442a, type: 2}
+  m_sharedMaterial: {fileID: -1593120904219715051, guid: 6ad65ad287389a34aa36b12c2998442a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2084,8 +2084,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 100
-  m_fontSizeBase: 100
+  m_fontSize: 120
+  m_fontSizeBase: 120
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2094,7 +2094,7 @@ MonoBehaviour:
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: 0
+  m_characterSpacing: -20
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
